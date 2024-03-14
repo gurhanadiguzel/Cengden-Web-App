@@ -1,0 +1,97 @@
+[
+    {
+        "_id": {
+            "$oid": "65f2f6f9bdd51fdeb11d8a61"
+        },
+        "Title": "Toyota Corolla 2020",
+        "Type": "Sedan",
+        "Brand": "Toyota",
+        "Model": "Corolla",
+        "Year": "2020",
+        "Color": "Silver",
+        "EngineDisplacement": "1.8 cc",
+        "FuelType": "Petrol",
+        "TransmissionType": "Automatic",
+        "Mileage": "20,000 km",
+        "Price": "$15,000",
+        "Image": "image path",
+        "Description": "good car"
+    },
+    {
+        "_id": {
+            "$oid": "65f2f707bdd51fdeb11d8a62"
+        },
+        "Title": "Honda Civic 2018",
+        "Type": "Sedan",
+        "Brand": "Honda",
+        "Model": "Civic",
+        "Year": "2018",
+        "Color": "White",
+        "EngineDisplacement": "1.5L",
+        "FuelType": "Petrol",
+        "TransmissionType": "CVT",
+        "Mileage": "25,000 km",
+        "Price": "$12,500",
+        "Image": "image path",
+        "Description": "good condition Civic with low mileage"
+    },
+    {
+        "_id": {
+            "$oid": "65f2f715bdd51fdeb11d8a63"
+        },
+        "Title": "Tesla Model S",
+        "Type": "Electric Car",
+        "Brand": "Tesla",
+        "Model": "Model S",
+        "Year": "2022",
+        "Color": "Red",
+        "EngineDisplacement": "N/A",
+        "FuelType": "Electric",
+        "TransmissionType": "Automatic",
+        "Mileage": "10,000 km",
+        "Price": "$80,000",
+        "Image": "image path",
+        "Description": "Luxurious electric sedan with autopilot feature",
+        "BatteryCapacity": "100 kWh",
+        "Range": "350 km"
+    },
+    {
+        "_id": {
+            "$oid": "65f2f723bdd51fdeb11d8a64"
+        },
+        "Title": "Airstream Flying Cloud 25FB",
+        "Type": "Caravan",
+        "Brand": "Airstream",
+        "Model": "Flying Cloud 25FB",
+        "Year": "2023",
+        "Color": "Silver",
+        "EngineDisplacement": "3.0L",
+        "FuelType": "Diesel",
+        "TransmissionType": "Manual",
+        "Mileage": "15,000 miles",
+        "Price": "$40,000",
+        "Image": "image path",
+        "Description": "Spacious travel trailer for outdoor adventures",
+        "BedCapacity": "Sleeps 4",
+        "WaterTankCapacity": "50 liters"
+    },
+    {
+        "_id": {
+            "$oid": "65f2f72ebdd51fdeb11d8a65"
+        },
+        "Title": "Ford F-150 2020",
+        "Type": "Truck",
+        "Brand": "Ford",
+        "Model": "F150",
+        "Year": "2020",
+        "Color": "Black",
+        "EngineDisplacement": "3.5L V6",
+        "FuelType": "Petrol",
+        "TransmissionType": "Automatic",
+        "Mileage": "30,000 km",
+        "Price": "$35,000",
+        "Image": "image path",
+        "Description": "Powerful pickup truck for various tasks",
+        "PayloadCapacity": "1500 kg"
+    }
+]

@@ -1,0 +1,43 @@
+[
+    {
+        "_id": {
+            "$oid": "65f2e226bdd51fdeb11d8a5b"
+        },
+        "Title": "Dell XPS 13",
+        "Type": "Notebook",
+        "Brand": "Dell",
+        "Model": "XPS 13",
+        "Year": "2022",
+        "Processor": "Intel Core i7-1185G7",
+        "RAM": "16 GB",
+        "Storage": {
+            "SSD": "512 GB SSD"
+        },
+        "Graphics Card": "Intel Iris Xe Graphics",
+        "Operating System": "Windows 11",
+        "Price": "$1,599",
+        "Image": "images/porsche.jpg",
+        "Description": "Slim and powerful notebook with a stunning 13-inch display, ideal for professionals on the go."
+    },
+    {
+        "_id": {
+            "$oid": "65f2f371bdd51fdeb11d8a5c"
+        },
+        "Title": "Apple MacBook Pro 16-inch",
+        "Type": "Notebook",
+        "Brand": "Apple",
+        "Model": "MacBook Pro",
+        "Year": "2021",
+        "Processor": "Apple M1 Pro",
+        "RAM": "16 GB",
+        "Storage": {
+            "SSD": "512 GB SSD",
+            "HDD": "1 TB HDD"
+        },
+        "Graphics Card": "Apple M1 Pro",
+        "Operating System": "macOS Monterey",
+        "Price": "$2,499",
+        "Image": "images/porsche.jpg",
+        "Description": "Powerful MacBook Pro with stunning Retina display, perfect for creative professionals."
+    }
+]
