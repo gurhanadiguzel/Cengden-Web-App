@@ -1,0 +1,47 @@
+[
+    {
+        "_id": {
+            "$oid": "65f2f47bbdd51fdeb11d8a5d"
+        },
+        "Title": "Samsung Galaxy S21 Ultra",
+        "Brand": "Samsung",
+        "Model": "S21 Ultra",
+        "Year": "2021",
+        "Operating System": "Android 11",
+        "Processor": "Exynos 2100",
+        "RAM": "12 GB",
+        "Storage": "256 GB",
+        "Camera Specifications": {
+            "Main": "108MP",
+            "Front": "40MP",
+            "Periscope Telephoto": "12MP",
+            "Telephoto": "10MP"
+        },
+        "Battery Capacity": "5000 mAh",
+        "Price": "$1,199",
+        "Image": "image path",
+        "Description": "Flagship Samsung phone with top-tier specs and advanced camera features."
+    },
+    {
+        "_id": {
+            "$oid": "65f2f5c3bdd51fdeb11d8a5e"
+        },
+        "Title": "iPhone 13 Pro Max",
+        "Brand": "Apple",
+        "Model": "13 Pro Max",
+        "Year": "2021",
+        "Operating System": "iOS 15",
+        "Processor": "Apple A15 Bionic",
+        "RAM": "6 GB",
+        "Storage": "512 GB",
+        "Camera Specifications": {
+            "Main": "12MP",
+            "Ultra Wide": "12MP",
+            "Telephoto": "12MP"
+        },
+        "Battery Capacity": "4352 mAh",
+        "Price": "$1,099",
+        "Image": "image path",
+        "Description": "Super iPhone offering from Apple with improved camera capabilities and long battery life."
+    }
+]

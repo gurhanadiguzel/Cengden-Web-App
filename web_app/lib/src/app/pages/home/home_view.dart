@@ -4,6 +4,7 @@ import 'package:web_app/src/app/constants.dart';
 import 'package:web_app/src/app/pages/home/home_controller.dart';
 import 'package:web_app/src/app/widgets/app_bar.dart';
 import 'package:web_app/src/app/widgets/app_drawer.dart';
+import 'package:web_app/src/domain/entities/item.dart';
 
 class HomeView extends View {
   @override
@@ -37,18 +38,24 @@ class _HomeViewState extends ViewState<HomeView, HomeController> {
         title: const CengdenAppBar(),
         iconTheme: IconThemeData(color: kPrimaryColor),
       ),
-      body: Container(
-        padding: EdgeInsets.all(20),
-        height: 150,
-        child: Column(
-          children: [
-            Expanded(
-              child: Column(
-                children: [],
-              ),
+      body: ControlledWidgetBuilder<HomeController>(
+        builder: (context, controller) {
+          return Container(
+            padding: EdgeInsets.all(20),
+            height: 150,
+            child: Column(
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      for (Item item in controller.items) Text(item.title),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

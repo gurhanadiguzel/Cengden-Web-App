@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_app/src/app/navigator.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -22,33 +23,77 @@ class AppDrawer extends StatelessWidget {
             ),
             // Menu Items
             ListTile(
-              title: Text('Home'),
+              title: Row(
+                children: [
+                  Icon(Icons.home_outlined),
+                  SizedBox(width: 5),
+                  Text('Home'),
+                ],
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                CengdenNavigator.navigateToHomeView(context);
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.computer_outlined),
+                  SizedBox(width: 5),
+                  Text('Computers'),
+                ],
+              ),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: Text('Computers'),
+              title: Row(
+                children: [
+                  Icon(Icons.phone_iphone_outlined),
+                  SizedBox(width: 5),
+                  Text('Phones'),
+                ],
+              ),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: Text('Phones'),
+              title: Row(
+                children: [
+                  Icon(Icons.car_crash_outlined),
+                  SizedBox(width: 5),
+                  Text('Vehicles'),
+                ],
+              ),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: Text('Vehicles'),
+              title: Row(
+                children: [
+                  Icon(Icons.menu_book_outlined),
+                  SizedBox(width: 5),
+                  Text('Private Lessons'),
+                ],
+              ),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: Text('Private Lessons'),
+              title: Row(
+                children: [
+                  Icon(Icons.account_circle_outlined),
+                  SizedBox(width: 5),
+                  Text('Profile'),
+                ],
+              ),
               onTap: () {
                 Navigator.pop(context);
+                CengdenNavigator.navigateToRegisterView(context);
               },
             ),
           ],
