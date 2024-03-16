@@ -12,6 +12,7 @@ class Vehicle extends Item {
   String? mileage;
 
   Vehicle({
+    required String id,
     required String title,
     required String price,
     required String imageUrl,
@@ -26,6 +27,7 @@ class Vehicle extends Item {
     this.transmissionType,
     this.mileage,
   }) : super(
+          id: id,
           title: title,
           price: price,
           imageUrl: imageUrl,

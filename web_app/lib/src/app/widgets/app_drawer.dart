@@ -4,10 +4,12 @@ import 'package:web_app/src/app/navigator.dart';
 class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Drawer(
       backgroundColor: Colors.white,
       child: Container(
-        height: 300,
+        height: size.height * 0.16,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [

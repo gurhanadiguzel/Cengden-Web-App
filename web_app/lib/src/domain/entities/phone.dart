@@ -12,6 +12,7 @@ class Phone extends Item {
   String? batteryCapacity;
 
   Phone({
+    required String id,
     required String title,
     required String price,
     required String imageUrl,
@@ -26,6 +27,7 @@ class Phone extends Item {
     this.cameraSpecification,
     this.batteryCapacity,
   }) : super(
+          id: id,
           title: title,
           price: price,
           imageUrl: imageUrl,

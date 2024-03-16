@@ -2,11 +2,17 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:web_app/src/app/constants.dart';
 import 'package:web_app/src/domain/entities/computer.dart';
 import 'package:web_app/src/domain/entities/item.dart';
 
 class HomeController extends Controller {
   List<Item> items = [];
+  final int itemsPerPage = 10;
+  int currentPage = 0;
+  int startIndex = 0;
+  int endIndex = 10;
+
   @override
   void onInitState() {
     super.onInitState();
@@ -15,18 +21,31 @@ class HomeController extends Controller {
 
   @override
   void initListeners() {}
+  void setNextPage() {
+    currentPage++;
+    startIndex = currentPage * itemsPerPage;
+    endIndex = items.length > (startIndex + itemsPerPage) ? startIndex + itemsPerPage : items.length;
+    refreshUI();
+  }
+
+  void setBackPage() {
+    currentPage--;
+    startIndex = currentPage * itemsPerPage;
+    endIndex = startIndex + itemsPerPage;
+    refreshUI();
+  }
+
   void getItems() async {
     try {
-      String filePath = 'C:/Users/QP/Desktop/Wep-App/template/computers.json';
-      final file = File(filePath);
-      final jsonString = await file.readAsString();
-      // print(jsonString);
-      // final jsonData = json.decode(jsonString);
+      final jsonData = json.decode(jsonString);
 
-      // for (var item in jsonData) {
-      //   var computer = Computer.fromJson(item);
-      //   print(computer.title);
+      for (var item in jsonData) {
+        var computer = Item.fromJson(item);
+        items.add(computer);
+        refreshUI();
+      }
     } catch (e, st) {
+      print("ERROR\n");
       print(e);
       print(st);
       rethrow;

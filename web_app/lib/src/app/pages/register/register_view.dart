@@ -33,12 +33,12 @@ class _RegisterViewState extends ViewState<RegisterView, RegisterController> {
           builder: (context) => IconButton(
             icon: Icon(
               Icons.menu_rounded,
-              size: 40,
+              size: size.width * 0.025,
             ),
             onPressed: () => _scaffoldKey.currentState!.openDrawer(),
           ),
         ),
-        toolbarHeight: 100,
+        toolbarHeight: size.height * 0.12,
         title: const CengdenAppBar(),
         iconTheme: IconThemeData(color: kPrimaryColor),
       ),

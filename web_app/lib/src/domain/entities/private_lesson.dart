@@ -8,6 +8,7 @@ class PrivateLesson extends Item {
 
   // Constructor for PrivateLesson class
   PrivateLesson({
+    required String id,
     required String title,
     required String price,
     required String imageUrl,
@@ -17,6 +18,7 @@ class PrivateLesson extends Item {
     this.location,
     this.duration,
   }) : super(
+          id: id,
           title: title,
           price: price,
           imageUrl: imageUrl,
