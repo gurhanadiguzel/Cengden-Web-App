@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart' hide View;
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:web_app/src/app/constants.dart';
+import 'package:web_app/src/app/navigator.dart';
 import 'package:web_app/src/app/pages/home/home_controller.dart';
 import 'package:web_app/src/app/widgets/app_bar.dart';
 import 'package:web_app/src/app/widgets/app_drawer.dart';
+import 'package:web_app/src/data/repositories/data_item_repository.dart';
+import 'package:web_app/src/data/repositories/data_user_repository.dart';
 import 'package:web_app/src/domain/entities/item.dart';
 
 class HomeView extends View {
   @override
   State<StatefulWidget> createState() {
     return _HomeViewState(
-      HomeController(),
+      HomeController(
+        DataItemRepository(),
+        DataUserRepository(),
+      ),
     );
   }
 }
@@ -52,8 +58,14 @@ class _HomeViewState extends ViewState<HomeView, HomeController> {
                 children: [
                   Column(
                     children: [
-                      for (int index = controller.startIndex; index < controller.endIndex; index++)
-                        _ItemContainer(item: controller.items[index]),
+                      controller.isGetItemsFetched
+                          ? Column(
+                              children: [
+                                for (int index = controller.startIndex; index < controller.endIndex; index++)
+                                  _ItemContainer(item: controller.items[index])
+                              ],
+                            )
+                          : Container(),
                     ],
                   ),
                   SizedBox(height: 20),
@@ -87,7 +99,9 @@ class _ItemContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        CengdenNavigator.navigateToItemDetailsView(context, item);
+      },
       child: Container(
         margin: EdgeInsets.only(bottom: 20),
         padding: EdgeInsets.all(20),
@@ -108,7 +122,7 @@ class _ItemContainer extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
+              child: Image.network(
                 item.imageUrl,
                 height: 150,
                 width: 150,
@@ -137,7 +151,7 @@ class _ItemContainer extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    '\$${item.price}',
+                    item.price,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,

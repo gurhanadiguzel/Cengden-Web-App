@@ -5,6 +5,7 @@ class RegisterController extends Controller {
   String email = '';
   String password = '';
   String passwordAgain = '';
+  String phoneNumber = '';
   bool termsAndPrivacyAccepted = false;
 
   bool isLoading = false;
@@ -39,6 +40,11 @@ class RegisterController extends Controller {
   void setPasswordAgain(String value) {
     passwordsMatch = null;
     this.passwordAgain = value;
+    refreshUI();
+  }
+
+  void setPhoneNumber(String value) {
+    this.phoneNumber = value;
     refreshUI();
   }
 

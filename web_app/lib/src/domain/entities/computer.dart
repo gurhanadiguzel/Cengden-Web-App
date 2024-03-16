@@ -35,13 +35,12 @@ class Computer extends Item {
         );
 
   factory Computer.fromJson(Map<String, dynamic> json) {
-    final id = json['_id'] != null ? json['_id']['\$oid'] : '';
     return Computer(
-      id: id,
-      title: json['Title'] ?? '',
-      price: json['Price'] ?? '',
-      imageUrl: json['Image'] ?? '',
-      description: json['Description'] ?? '',
+      id: json['_id'],
+      title: json['Title'],
+      price: json['Price'],
+      imageUrl: json['Image'],
+      description: json['Description'],
       type: json['Type'],
       brand: json['Brand'],
       model: json['Model'],

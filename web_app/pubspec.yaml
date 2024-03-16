@@ -23,6 +23,8 @@ dependencies:
   flutter_svg: ^2.0.9
   transparent_image: ^2.0.1
   window_manager: ^0.3.8
+  http: ^0.13.3
+  dio: ^5.4.1
 
 
 dev_dependencies:

@@ -10,6 +10,11 @@ class Vehicle extends Item {
   String? fuelType;
   String? transmissionType;
   String? mileage;
+  String? batteryCapacity;
+  String? range;
+  String? bedCapacity;
+  String? waterTankCapacity;
+  String? payloadCapacity;
 
   Vehicle({
     required String id,
@@ -26,6 +31,11 @@ class Vehicle extends Item {
     this.fuelType,
     this.transmissionType,
     this.mileage,
+    this.batteryCapacity,
+    this.range,
+    this.bedCapacity,
+    this.waterTankCapacity,
+    this.payloadCapacity,
   }) : super(
           id: id,
           title: title,
@@ -33,4 +43,28 @@ class Vehicle extends Item {
           imageUrl: imageUrl,
           description: description,
         );
+
+  factory Vehicle.fromJson(Map<String, dynamic> json) {
+    return Vehicle(
+      id: json['_id'],
+      title: json['Title'],
+      type: json['Type'],
+      brand: json['Brand'],
+      model: json['Model'],
+      year: json['Year'],
+      color: json['Color'],
+      engineDisplacement: json['EngineDisplacement'],
+      fuelType: json['FuelType'],
+      transmissionType: json['TransmissionType'],
+      mileage: json['Mileage'],
+      price: json['Price'],
+      imageUrl: json['Image'],
+      description: json['Description'],
+      batteryCapacity: json['Battery Capacity'] ?? '',
+      range: json['Range'] ?? '',
+      bedCapacity: json['Bed Capacity'] ?? '',
+      waterTankCapacity: json['Water Tank Capacity'] ?? '',
+      payloadCapacity: json['Payload Capacity'] ?? '',
+    );
+  }
 }

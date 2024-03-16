@@ -2,11 +2,10 @@ import 'package:web_app/src/domain/entities/item.dart';
 
 class PrivateLesson extends Item {
   String? tutorName;
-  String? lessons;
+  List<String>? lessons;
   String? location;
   String? duration;
 
-  // Constructor for PrivateLesson class
   PrivateLesson({
     required String id,
     required String title,
@@ -24,4 +23,18 @@ class PrivateLesson extends Item {
           imageUrl: imageUrl,
           description: description,
         );
+
+  factory PrivateLesson.fromJson(Map<String, dynamic> json) {
+    return PrivateLesson(
+      id: json['_id'] ?? '',
+      title: json['Title'],
+      tutorName: json['Tutor Name'],
+      lessons: (json['Lessons'] as List<dynamic>).cast<String>(),
+      location: json['Location'],
+      duration: json['Duration'],
+      price: json['Price'],
+      imageUrl: json['Image'],
+      description: json['Description'],
+    );
+  }
 }

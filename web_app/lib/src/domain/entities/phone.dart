@@ -8,7 +8,7 @@ class Phone extends Item {
   String? processor;
   String? ram;
   String? storage;
-  String? cameraSpecification;
+  Map<String, String>? cameraSpecifications;
   String? batteryCapacity;
 
   Phone({
@@ -24,7 +24,7 @@ class Phone extends Item {
     this.processor,
     this.ram,
     this.storage,
-    this.cameraSpecification,
+    this.cameraSpecifications,
     this.batteryCapacity,
   }) : super(
           id: id,
@@ -33,4 +33,23 @@ class Phone extends Item {
           imageUrl: imageUrl,
           description: description,
         );
+
+  factory Phone.fromJson(Map<String, dynamic> json) {
+    return Phone(
+      id: json['_id'] ?? '',
+      title: json['Title'] ?? '',
+      price: json['Price'] ?? '',
+      imageUrl: json['Image'] ?? '',
+      description: json['Description'] ?? '',
+      brand: json['Brand'],
+      model: json['Model'],
+      year: json['Year'],
+      operatingSystem: json['Operating System'],
+      processor: json['Processor'],
+      ram: json['RAM'],
+      storage: json['Storage'],
+      cameraSpecifications: Map<String, String>.from(json['Camera Specifications']),
+      batteryCapacity: json['Battery Capacity'],
+    );
+  }
 }

@@ -200,6 +200,14 @@ class _RegisterViewState extends ViewState<RegisterView, RegisterController> {
                                   color: controller.passwordsMatch == false ? Colors.red : null,
                                 ),
                                 SizedBox(height: 20),
+                                CengdenTextField(
+                                  size: size,
+                                  title: "Phone Number",
+                                  hintText: "Your phone number",
+                                  isObscure: false,
+                                  onChanged: controller.setPhoneNumber,
+                                ),
+                                SizedBox(height: 20),
                                 GestureDetector(
                                   onTap: controller.toggleTermsAndPolicy,
                                   child: Row(
