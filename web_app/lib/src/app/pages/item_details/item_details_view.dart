@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart' hide View;
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:web_app/src/app/constants.dart';
+import 'package:web_app/src/app/navigator.dart';
 import 'package:web_app/src/app/pages/item_details/item_details_controller.dart';
 import 'package:web_app/src/app/widgets/app_bar.dart';
 import 'package:web_app/src/app/widgets/app_drawer.dart';
 import 'package:web_app/src/app/widgets/item_widgets.dart';
+import 'package:web_app/src/data/repositories/data_item_repository.dart';
+import 'package:web_app/src/data/repositories/data_user_repository.dart';
 import 'package:web_app/src/domain/entities/computer.dart';
 import 'package:web_app/src/domain/entities/item.dart';
 import 'package:web_app/src/domain/entities/phone.dart';
@@ -19,7 +22,10 @@ class ItemDetailsView extends View {
   @override
   State<StatefulWidget> createState() {
     return _ItemDetailsState(
-      ItemDetailsController(),
+      ItemDetailsController(
+        DataItemRepository(),
+        DataUserRepository(),
+      ),
       item,
     );
   }
@@ -56,13 +62,78 @@ class _ItemDetailsState extends ViewState<ItemDetailsView, ItemDetailsController
         title: const CengdenAppBar(),
         iconTheme: IconThemeData(color: kPrimaryColor),
       ),
-      body: item is Computer
-          ? ComputerView(computer: item as Computer)
-          : item is Phone
-              ? PhoneView(phone: item as Phone)
-              : item is Vehicle
-                  ? VehicleView(vehicle: item as Vehicle)
-                  : PrivateLessonView(privateLesson: item as PrivateLesson),
+      body: ControlledWidgetBuilder<ItemDetailsController>(builder: (context, contoller) {
+        return SingleChildScrollView(
+          padding: EdgeInsets.all(16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Left side with image
+              Column(
+                children: [
+                  Container(
+                    width: size.width / 3,
+                    margin: EdgeInsets.only(right: 16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.network(
+                        item.imageUrl,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    width: size.width / 3,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            CengdenNavigator.navigateToUpdateItemView(context, item);
+                          },
+                          icon: Icon(
+                            Icons.edit,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            contoller.deleteItem(item);
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.delete,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              // Right side with details
+              item is Computer
+                  ? ComputerView(computer: item as Computer)
+                  : item is Phone
+                      ? PhoneView(phone: item as Phone)
+                      : item is Vehicle
+                          ? VehicleView(vehicle: item as Vehicle)
+                          : PrivateLessonView(privateLesson: item as PrivateLesson),
+            ],
+          ),
+        );
+      }),
     );
   }
 }

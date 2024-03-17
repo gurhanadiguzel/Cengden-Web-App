@@ -67,4 +67,28 @@ class Vehicle extends Item {
       payloadCapacity: json['Payload Capacity'] ?? '',
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'Title': title,
+      'Type': type,
+      'Brand': brand,
+      'Model': model,
+      'Year': year,
+      'Color': color,
+      'EngineDisplacement': engineDisplacement,
+      'FuelType': fuelType,
+      'TransmissionType': transmissionType,
+      'Mileage': mileage,
+      'Price': price,
+      'Image': imageUrl,
+      'Description': description,
+      'Battery Capacity': batteryCapacity,
+      'Range': range,
+      'Bed Capacity': bedCapacity,
+      'Water Tank Capacity': waterTankCapacity,
+      'Payload Capacity': payloadCapacity,
+    };
+  }
 }

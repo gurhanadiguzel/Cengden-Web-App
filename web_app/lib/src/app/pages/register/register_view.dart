@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart' hide View;
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:web_app/src/app/constants.dart';
 import 'package:web_app/src/app/navigator.dart';
@@ -8,12 +7,15 @@ import 'package:web_app/src/app/widgets/app_bar.dart';
 import 'package:web_app/src/app/widgets/app_drawer.dart';
 import 'package:web_app/src/app/widgets/cengden_text_field.dart';
 import 'package:web_app/src/app/widgets/primary_button.dart';
+import 'package:web_app/src/data/repositories/data_user_repository.dart';
 
 class RegisterView extends View {
   @override
   State<StatefulWidget> createState() {
     return _RegisterViewState(
-      RegisterController(),
+      RegisterController(
+        DataUserRepository(),
+      ),
     );
   }
 }
@@ -112,7 +114,7 @@ class _RegisterViewState extends ViewState<RegisterView, RegisterController> {
                                 SizedBox(height: 50),
                                 PrimaryButton(
                                   text: "Log in",
-                                  onPressed: controller.logIn,
+                                  onPressedFunctions: [controller.logIn],
                                   isEnabled: controller.isFieldsAreInitializedForLogin(),
                                   isLoading: controller.isLoading,
                                 ),
@@ -141,10 +143,9 @@ class _RegisterViewState extends ViewState<RegisterView, RegisterController> {
                             ),
                           ),
                           Container(
-                            // Vertical Spacer with Color
                             width: 1,
                             height: size.height - 200,
-                            color: kBlackHint, // Set the color of the spacer
+                            color: kBlackHint,
                           ),
                           Container(
                             width: (size.width - 40) / 4,
@@ -236,7 +237,10 @@ class _RegisterViewState extends ViewState<RegisterView, RegisterController> {
                                 SizedBox(height: 40),
                                 PrimaryButton(
                                   text: "Sign Up",
-                                  onPressed: controller.register,
+                                  onPressedFunctions: [
+                                    controller.signUp,
+                                    () => CengdenNavigator.navigateToHomeView(context, 'no'),
+                                  ],
                                   isEnabled: controller.isFieldsAreInitializedForRegister(),
                                   isLoading: controller.isLoading,
                                 ),

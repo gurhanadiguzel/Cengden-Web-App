@@ -37,4 +37,18 @@ class PrivateLesson extends Item {
       description: json['Description'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'Title': title,
+      'Tutor Name': tutorName,
+      'Lessons': lessons,
+      'Location': location,
+      'Duration': duration,
+      'Price': price,
+      'Image': imageUrl,
+      'Description': description,
+    };
+  }
 }

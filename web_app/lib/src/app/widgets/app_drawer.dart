@@ -34,7 +34,7 @@ class AppDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.pop(context);
-                CengdenNavigator.navigateToHomeView(context);
+                CengdenNavigator.navigateToHomeView(context, 'no');
               },
             ),
             ListTile(
@@ -47,6 +47,7 @@ class AppDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.pop(context);
+                CengdenNavigator.navigateToHomeView(context, 'computers');
               },
             ),
             ListTile(
@@ -59,6 +60,7 @@ class AppDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.pop(context);
+                CengdenNavigator.navigateToHomeView(context, 'phones');
               },
             ),
             ListTile(
@@ -71,6 +73,7 @@ class AppDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.pop(context);
+                CengdenNavigator.navigateToHomeView(context, 'vehicles');
               },
             ),
             ListTile(
@@ -83,6 +86,7 @@ class AppDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.pop(context);
+                CengdenNavigator.navigateToHomeView(context, 'privateLessons');
               },
             ),
             ListTile(

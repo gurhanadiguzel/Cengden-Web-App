@@ -5,11 +5,11 @@ import 'package:web_app/src/app/pages/register/register_view.dart';
 import 'package:web_app/src/domain/entities/item.dart';
 
 class CengdenNavigator {
-  static Future<void> navigateToHomeView(BuildContext context) async {
+  static Future<void> navigateToHomeView(BuildContext context, String filter) async {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => HomeView(),
+        builder: (context) => HomeView(filter),
       ),
     );
   }
@@ -24,6 +24,16 @@ class CengdenNavigator {
   }
 
   static Future<void> navigateToItemDetailsView(BuildContext context, Item item) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ItemDetailsView(item),
+      ),
+    );
+  }
+
+  static Future<void> navigateToUpdateItemView(BuildContext context, Item item) async {
+    //TODO:
     await Navigator.push(
       context,
       MaterialPageRoute(

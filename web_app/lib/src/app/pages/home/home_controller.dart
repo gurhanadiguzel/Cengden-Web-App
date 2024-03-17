@@ -10,9 +10,12 @@ import 'package:web_app/src/domain/repositories/item_repository.dart';
 import 'package:web_app/src/domain/repositories/user_repository.dart';
 
 class HomeController extends Controller {
+  final String typeFilter;
+
   HomeController(
     ItemRepository itemRepository,
     UserRepository userRepository,
+    this.typeFilter,
   )   : _itemRepository = itemRepository,
         _userRepository = userRepository;
 
@@ -20,6 +23,10 @@ class HomeController extends Controller {
   UserRepository _userRepository;
 
   List<Item> items = [];
+  List<Item> computers = [];
+  List<Item> phones = [];
+  List<Item> vehicles = [];
+  List<Item> privateLessons = [];
   int itemsPerPage = 10;
   int currentPage = 0;
   int startIndex = 0;
@@ -52,12 +59,33 @@ class HomeController extends Controller {
   }
 
   void getItems() async {
-    items = await _itemRepository.getItems();
+    computers = await _itemRepository.getComputers();
+    phones = await _itemRepository.getPhones();
+    vehicles = await _itemRepository.getVehicles();
+    privateLessons = await _itemRepository.getPrivateLessons();
+
+    filterComputers();
+
     endIndex = 10;
     if (items.length < endIndex) {
       endIndex = items.length;
     }
     isGetItemsFetched = true;
     refreshUI();
+  }
+
+  void filterComputers() async {
+    if (typeFilter == 'computers') {
+      items = computers;
+    } else if (typeFilter == 'phones') {
+      items = phones;
+    } else if (typeFilter == 'vehicles') {
+      items = vehicles;
+    } else if (typeFilter == 'privateLessons') {
+      items = privateLessons;
+    } else {
+      items = computers + phones + vehicles + privateLessons;
+      items.shuffle();
+    }
   }
 }

@@ -10,12 +10,17 @@ import 'package:web_app/src/data/repositories/data_user_repository.dart';
 import 'package:web_app/src/domain/entities/item.dart';
 
 class HomeView extends View {
+  final String typeFilter;
+
+  HomeView(this.typeFilter);
+
   @override
   State<StatefulWidget> createState() {
     return _HomeViewState(
       HomeController(
         DataItemRepository(),
         DataUserRepository(),
+        typeFilter,
       ),
     );
   }
@@ -49,37 +54,33 @@ class _HomeViewState extends ViewState<HomeView, HomeController> {
       ),
       body: ControlledWidgetBuilder<HomeController>(
         builder: (context, controller) {
-          final List<Item> items = controller.items;
-
           return SingleChildScrollView(
             child: Container(
               padding: EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  Column(
-                    children: [
-                      controller.isGetItemsFetched
-                          ? Column(
-                              children: [
-                                for (int index = controller.startIndex; index < controller.endIndex; index++)
-                                  _ItemContainer(item: controller.items[index])
-                              ],
-                            )
-                          : Container(),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  items.length > controller.endIndex
-                      ? ElevatedButton(
-                          onPressed: controller.setNextPage,
-                          child: Text('Next Page'),
-                        )
-                      : ElevatedButton(
-                          onPressed: controller.setBackPage,
-                          child: Text('Back Page'),
+              child: controller.isGetItemsFetched
+                  ? Column(
+                      children: [
+                        Column(
+                          children: [
+                            for (int index = controller.startIndex; index < controller.endIndex; index++)
+                              _ItemContainer(item: controller.items[index])
+                          ],
                         ),
-                ],
-              ),
+                        SizedBox(height: 20),
+                        controller.items.length > controller.endIndex
+                            ? ElevatedButton(
+                                onPressed: controller.setNextPage,
+                                child: Text('Next Page'),
+                              )
+                            : ElevatedButton(
+                                onPressed: controller.setBackPage,
+                                child: Text('Back Page'),
+                              ),
+                      ],
+                    )
+                  : Center(
+                      child: CircularProgressIndicator(),
+                    ),
             ),
           );
         },
@@ -125,8 +126,7 @@ class _ItemContainer extends StatelessWidget {
               child: Image.network(
                 item.imageUrl,
                 height: 150,
-                width: 150,
-                fit: BoxFit.cover,
+                width: 200,
               ),
             ),
             SizedBox(width: 20),

@@ -1,4 +1,4 @@
-class Item {
+abstract class Item {
   final String id;
   final String title;
   final String price;
@@ -14,13 +14,10 @@ class Item {
   });
 
   factory Item.fromJson(Map<String, dynamic> json) {
-    final id = json['_id'] != null ? json['_id']['\$oid'] : '';
-    return Item(
-      id: id,
-      title: json['Title'] ?? '',
-      price: json['Price'] ?? '',
-      imageUrl: json['Image'] ?? '',
-      description: json['Description'] ?? '',
-    );
+    throw UnimplementedError('fromJson must be implemented in concrete subclass');
+  }
+
+  Map<String, dynamic> toJson() {
+    throw UnimplementedError('toJson must be implemented in concrete subclass');
   }
 }

@@ -29,8 +29,8 @@ const RESOURCES = {"assets/AssetManifest.bin": "e247420a65711dbe2f8fad2bdda10017
 "assets/assets/jsons/private_lessons.json": "fbaa1b933b8faf9adda8a525f37c77d0",
 "assets/assets/jsons/vehicles.json": "8c832ac5d4d77bde120c6e908fb62067",
 "assets/FontManifest.json": "b3da74f3817681b1f24b6a1195765f77",
-"assets/fonts/MaterialIcons-Regular.otf": "74ea5a20103f394c86d4a8fb83549c40",
-"assets/NOTICES": "074ef6f4b8edc365930c7042fef8a735",
+"assets/fonts/MaterialIcons-Regular.otf": "422e50fa504dd11d5d7dd9a5f02a8f59",
+"assets/NOTICES": "82cc8ef97a92af6232a6a852d868ec23",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "89ed8f4e49bcdfc0b5bfc9b24591e347",
 "assets/packages/window_manager/images/ic_chrome_close.png": "75f4b8ab3608a05461a31fc18d6b47c2",
 "assets/packages/window_manager/images/ic_chrome_maximize.png": "af7499d7657c8b69d23b85156b60298c",
@@ -50,9 +50,9 @@ const RESOURCES = {"assets/AssetManifest.bin": "e247420a65711dbe2f8fad2bdda10017
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
-"index.html": "e7ee42df9211740b493f211873967c65",
-"/": "e7ee42df9211740b493f211873967c65",
-"main.dart.js": "ec2dc1d467ea8ffdf107ea8d8066e735",
+"index.html": "8f6de7f3bc50cb0564d8d0c45c25095a",
+"/": "8f6de7f3bc50cb0564d8d0c45c25095a",
+"main.dart.js": "9418ad086ac3f8e9edc8f6b2fbc53e1c",
 "manifest.json": "3f9f46d43b9a25da68f5dd4800d5ed6d",
 "version.json": "c2a08cda2a1e690bfed5ce9fc4d9e5b1"};
 // The application shell files that are downloaded before a service worker can

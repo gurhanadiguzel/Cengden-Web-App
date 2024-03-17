@@ -52,4 +52,24 @@ class Phone extends Item {
       batteryCapacity: json['Battery Capacity'],
     );
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'Title': title,
+      'Price': price,
+      'Image': imageUrl,
+      'Description': description,
+      'Brand': brand,
+      'Model': model,
+      'Year': year,
+      'Operating System': operatingSystem,
+      'Processor': processor,
+      'RAM': ram,
+      'Storage': storage,
+      'Camera Specifications': cameraSpecifications,
+      'Battery Capacity': batteryCapacity,
+    };
+  }
 }

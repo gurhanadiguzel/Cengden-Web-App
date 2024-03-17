@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_app/src/app/constants.dart';
 import 'package:web_app/src/app/pages/home/home_view.dart';
 import 'package:web_app/src/app/pages/register/register_view.dart';
 
@@ -9,13 +10,13 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // scaffoldBackgroundColor: kBackgroundColor,
-        // colorScheme: ColorScheme.fromSeed(seedColor: kPrimaryColor),
+        scaffoldBackgroundColor: kBackgroundColor,
+        colorScheme: ColorScheme.fromSeed(seedColor: kPrimaryColor),
         useMaterial3: true,
         fontFamily: 'Poppins',
       ),
       home: Scaffold(
-        body: HomeView(),
+        body: HomeView('no'),
       ),
     );
   }

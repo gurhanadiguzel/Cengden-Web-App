@@ -16,6 +16,15 @@ const kBackgroundColor = Color(0xffF8F8F8);
 
 final kDeactiveColor = Color(0xff000000).withOpacity(0.25);
 
+final String dataSource = "Cluster0";
+final String database = "cengden";
+final String endpoint = "https://eu-central-1.aws.data.mongodb-api.com/app/data-tbzss/endpoint/data/v1";
+String? accessToken = '';
+var headers = {
+  "content-type": "application/json",
+  "Authorization": 'Bearer $accessToken',
+};
+
 TextStyle kTitleStyle({Color? color}) {
   return TextStyle(
     color: color ?? kBlack,

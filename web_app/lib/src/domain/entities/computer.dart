@@ -52,4 +52,24 @@ class Computer extends Item {
       operatingSystem: json['Operating System'],
     );
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'Title': title,
+      'Price': price,
+      'Image': imageUrl,
+      'Description': description,
+      'Type': type,
+      'Brand': brand,
+      'Model': model,
+      'Year': year,
+      'Processor': processor,
+      'RAM': ram,
+      'Storage': storage,
+      'Graphics Card': graphicCard,
+      'Operating System': operatingSystem,
+    };
+  }
 }
