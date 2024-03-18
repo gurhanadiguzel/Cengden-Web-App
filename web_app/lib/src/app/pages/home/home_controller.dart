@@ -1,11 +1,5 @@
-import 'dart:convert';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
-import 'package:http/http.dart' as https;
-import 'package:web_app/src/domain/entities/computer.dart';
 import 'package:web_app/src/domain/entities/item.dart';
-import 'package:web_app/src/domain/entities/phone.dart';
-import 'package:web_app/src/domain/entities/private_lesson.dart';
-import 'package:web_app/src/domain/entities/vehicle.dart';
 import 'package:web_app/src/domain/repositories/item_repository.dart';
 import 'package:web_app/src/domain/repositories/user_repository.dart';
 
@@ -16,11 +10,11 @@ class HomeController extends Controller {
     ItemRepository itemRepository,
     UserRepository userRepository,
     this.typeFilter,
-  )   : _itemRepository = itemRepository,
-        _userRepository = userRepository;
+  )   : itemRepository = itemRepository,
+        userRepository = userRepository;
 
-  ItemRepository _itemRepository;
-  UserRepository _userRepository;
+  ItemRepository itemRepository;
+  UserRepository userRepository;
 
   List<Item> items = [];
   List<Item> computers = [];
@@ -37,7 +31,7 @@ class HomeController extends Controller {
   @override
   void onInitState() async {
     super.onInitState();
-    await _itemRepository.getAccessToken();
+    await itemRepository.getAccessToken();
     getItems();
   }
 
@@ -59,10 +53,10 @@ class HomeController extends Controller {
   }
 
   void getItems() async {
-    computers = await _itemRepository.getComputers();
-    phones = await _itemRepository.getPhones();
-    vehicles = await _itemRepository.getVehicles();
-    privateLessons = await _itemRepository.getPrivateLessons();
+    computers = await itemRepository.getComputers();
+    phones = await itemRepository.getPhones();
+    vehicles = await itemRepository.getVehicles();
+    privateLessons = await itemRepository.getPrivateLessons();
 
     filterComputers();
 

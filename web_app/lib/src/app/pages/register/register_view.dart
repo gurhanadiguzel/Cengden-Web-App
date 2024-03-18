@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart' hide View;
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:web_app/src/app/constants.dart';
-import 'package:web_app/src/app/navigator.dart';
 import 'package:web_app/src/app/pages/register/register_controller.dart';
 import 'package:web_app/src/app/widgets/app_bar.dart';
 import 'package:web_app/src/app/widgets/app_drawer.dart';
@@ -27,29 +26,31 @@ class _RegisterViewState extends ViewState<RegisterView, RegisterController> {
   Widget get view {
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: AppDrawer(),
-      appBar: AppBar(
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: Icon(
-              Icons.menu_rounded,
-              size: size.width * 0.025,
-            ),
-            onPressed: () => _scaffoldKey.currentState!.openDrawer(),
+    return ControlledWidgetBuilder<RegisterController>(
+      builder: (context, controller) {
+        return Scaffold(
+          key: _scaffoldKey,
+          drawer: AppDrawer(
+            userRepository: controller.userRepository,
           ),
-        ),
-        toolbarHeight: size.height * 0.12,
-        title: const CengdenAppBar(),
-        iconTheme: IconThemeData(color: kPrimaryColor),
-      ),
-      body: Container(
-        width: size.width,
-        height: size.height,
-        child: ControlledWidgetBuilder<RegisterController>(
-          builder: (context, controller) {
-            return Column(
+          appBar: AppBar(
+            leading: Builder(
+              builder: (context) => IconButton(
+                icon: Icon(
+                  Icons.menu_rounded,
+                  size: size.width * 0.025,
+                ),
+                onPressed: () => _scaffoldKey.currentState!.openDrawer(),
+              ),
+            ),
+            toolbarHeight: size.height * 0.12,
+            title: const CengdenAppBar(),
+            iconTheme: IconThemeData(color: kPrimaryColor),
+          ),
+          body: Container(
+            width: size.width,
+            height: size.height,
+            child: Column(
               children: [
                 Expanded(
                   child: SingleChildScrollView(
@@ -86,7 +87,7 @@ class _RegisterViewState extends ViewState<RegisterView, RegisterController> {
                                   title: "Email Address",
                                   hintText: "Your email",
                                   isObscure: false,
-                                  onChanged: controller.setEmail,
+                                  onChanged: controller.setEmailLogin,
                                   color: (controller.isEmailValid == false || controller.isLoginValid == false)
                                       ? Colors.red
                                       : null,
@@ -97,7 +98,7 @@ class _RegisterViewState extends ViewState<RegisterView, RegisterController> {
                                   title: "Password",
                                   hintText: "Your password",
                                   isObscure: true,
-                                  onChanged: controller.setPassword,
+                                  onChanged: controller.setPasswordLogin,
                                 ),
                                 SizedBox(height: 15),
                                 Container(
@@ -114,28 +115,29 @@ class _RegisterViewState extends ViewState<RegisterView, RegisterController> {
                                 SizedBox(height: 50),
                                 PrimaryButton(
                                   text: "Log in",
-                                  onPressedFunctions: [controller.logIn],
+                                  onPressed: () {
+                                    controller.logIn(context);
+                                  },
                                   isEnabled: controller.isFieldsAreInitializedForLogin(),
                                   isLoading: controller.isLoading,
                                 ),
+                                SizedBox(height: 25),
                                 if (controller.isLoginValid == false)
                                   Text(
-                                    "User information is not correct",
+                                    "User information is not correct!",
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
-                                      color: Colors.red,
                                     ),
                                   ),
                                 if (controller.isEmailValid == false)
                                   Text(
-                                    "Email is not a valid email",
+                                    "Email is not a valid email!",
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
-                                      color: Colors.red,
                                     ),
                                   ),
                                 SizedBox(height: 40),
@@ -237,10 +239,9 @@ class _RegisterViewState extends ViewState<RegisterView, RegisterController> {
                                 SizedBox(height: 40),
                                 PrimaryButton(
                                   text: "Sign Up",
-                                  onPressedFunctions: [
-                                    controller.signUp,
-                                    () => CengdenNavigator.navigateToHomeView(context, 'no'),
-                                  ],
+                                  onPressed: () {
+                                    controller.signUp(context);
+                                  },
                                   isEnabled: controller.isFieldsAreInitializedForRegister(),
                                   isLoading: controller.isLoading,
                                 ),
@@ -253,10 +254,10 @@ class _RegisterViewState extends ViewState<RegisterView, RegisterController> {
                   ),
                 ),
               ],
-            );
-          },
-        ),
-      ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

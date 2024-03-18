@@ -1,4 +1,5 @@
 import 'package:web_app/src/domain/entities/item.dart';
+import 'package:web_app/src/domain/entities/user.dart';
 
 class Computer extends Item {
   String? type;
@@ -17,6 +18,9 @@ class Computer extends Item {
     required String price,
     required String imageUrl,
     required String description,
+    required User createdBy,
+    required bool isDetailsDisplayed,
+    bool? isItemVisible,
     this.type,
     this.brand,
     this.model,
@@ -32,35 +36,43 @@ class Computer extends Item {
           price: price,
           imageUrl: imageUrl,
           description: description,
+          createdBy: createdBy,
+          isDetailsDisplayed: isDetailsDisplayed,
+          isItemVisible: isItemVisible,
         );
 
   factory Computer.fromJson(Map<String, dynamic> json) {
     return Computer(
       id: json['_id'],
-      title: json['Title'],
-      price: json['Price'],
-      imageUrl: json['Image'],
-      description: json['Description'],
-      type: json['Type'],
-      brand: json['Brand'],
-      model: json['Model'],
-      year: json['Year'],
-      processor: json['Processor'],
-      ram: json['RAM'],
+      title: json['Title'] ?? '',
+      price: json['Price'] ?? '',
+      imageUrl: json['Image'] ?? '',
+      description: json['Description'] ?? '',
+      createdBy: User.fromJson(json['Created By']),
+      isDetailsDisplayed: json['Details Display'] ?? false,
+      isItemVisible: json['Item Visibility'] ?? true,
+      type: json['Type'] ?? '',
+      brand: json['Brand'] ?? '',
+      model: json['Model'] ?? '',
+      year: json['Year'] ?? '',
+      processor: json['Processor'] ?? '',
+      ram: json['RAM'] ?? '',
       storage: Map<String, String>.from(json['Storage']),
-      graphicCard: json['Graphics Card'],
-      operatingSystem: json['Operating System'],
+      graphicCard: json['Graphics Card'] ?? '',
+      operatingSystem: json['Operating System'] ?? '',
     );
   }
 
   @override
   Map<String, dynamic> toJson() {
     return {
-      '_id': id,
       'Title': title,
       'Price': price,
       'Image': imageUrl,
       'Description': description,
+      'Created By': createdBy.toJson(),
+      'Details Display': isDetailsDisplayed,
+      'Item Visibility': isItemVisible,
       'Type': type,
       'Brand': brand,
       'Model': model,

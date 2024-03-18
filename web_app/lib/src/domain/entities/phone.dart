@@ -1,4 +1,5 @@
 import 'package:web_app/src/domain/entities/item.dart';
+import 'package:web_app/src/domain/entities/user.dart';
 
 class Phone extends Item {
   String? brand;
@@ -17,6 +18,9 @@ class Phone extends Item {
     required String price,
     required String imageUrl,
     required String description,
+    required User createdBy,
+    required bool isDetailsDisplayed,
+    bool? isItemVisible,
     this.brand,
     this.model,
     this.year,
@@ -32,15 +36,21 @@ class Phone extends Item {
           price: price,
           imageUrl: imageUrl,
           description: description,
+          createdBy: createdBy,
+          isDetailsDisplayed: isDetailsDisplayed,
+          isItemVisible: isItemVisible,
         );
 
   factory Phone.fromJson(Map<String, dynamic> json) {
     return Phone(
-      id: json['_id'] ?? '',
-      title: json['Title'] ?? '',
-      price: json['Price'] ?? '',
-      imageUrl: json['Image'] ?? '',
-      description: json['Description'] ?? '',
+      id: json['_id'],
+      title: json['Title'],
+      price: json['Price'],
+      imageUrl: json['Image'],
+      description: json['Description'],
+      createdBy: User.fromJson(json['Created By']),
+      isDetailsDisplayed: json['Details Display'] ?? false,
+      isItemVisible: json['Item Visibility'] ?? true,
       brand: json['Brand'],
       model: json['Model'],
       year: json['Year'],
@@ -56,11 +66,13 @@ class Phone extends Item {
   @override
   Map<String, dynamic> toJson() {
     return {
-      '_id': id,
       'Title': title,
       'Price': price,
       'Image': imageUrl,
       'Description': description,
+      'Created By': createdBy.toJson(),
+      'Details Display': isDetailsDisplayed,
+      'Item Visibility': isItemVisible,
       'Brand': brand,
       'Model': model,
       'Year': year,

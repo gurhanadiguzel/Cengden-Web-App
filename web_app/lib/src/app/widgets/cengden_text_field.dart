@@ -10,6 +10,7 @@ class CengdenTextField extends StatelessWidget {
     required this.isObscure,
     required this.onChanged,
     this.color,
+    this.initialValue,
   });
 
   final Size size;
@@ -18,6 +19,7 @@ class CengdenTextField extends StatelessWidget {
   final bool isObscure;
   final void Function(String text) onChanged;
   final Color? color;
+  final String? initialValue;
 
   @override
   Widget build(BuildContext context) {

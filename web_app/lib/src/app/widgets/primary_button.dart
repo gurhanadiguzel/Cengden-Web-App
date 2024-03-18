@@ -4,13 +4,13 @@ import 'package:web_app/src/app/constants.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String text;
-  final List<Function()>? onPressedFunctions;
+  final Function()? onPressed;
   final bool isEnabled;
   final bool isLoading;
 
   PrimaryButton({
     required this.text,
-    required this.onPressedFunctions,
+    required this.onPressed,
     required this.isEnabled,
     required this.isLoading,
   });
@@ -49,9 +49,7 @@ class PrimaryButton extends StatelessWidget {
         ),
         onPressed: () {
           if (isEnabled) {
-            for (Function() onPressed in onPressedFunctions!) {
-              onPressed();
-            }
+            onPressed!();
             HapticFeedback.lightImpact();
           }
         },

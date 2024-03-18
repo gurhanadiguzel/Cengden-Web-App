@@ -7,15 +7,17 @@ class ItemDetailsController extends Controller {
   ItemDetailsController(
     ItemRepository itemRepository,
     UserRepository userRepository,
-  )   : _itemRepository = itemRepository,
-        _userRepository = userRepository;
+  )   : itemRepository = itemRepository,
+        userRepository = userRepository;
 
-  ItemRepository _itemRepository;
-  UserRepository _userRepository;
+  ItemRepository itemRepository;
+  UserRepository userRepository;
   @override
   void initListeners() {}
+  void updateItem() {}
+  // TODO When item deleted, items should updated.
   void deleteItem(Item item) async {
-    await _itemRepository.deleteItem(item);
+    await itemRepository.deleteItem(item);
     refreshUI();
   }
 }

@@ -15,7 +15,6 @@ class ComputerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,9 +131,28 @@ class ComputerView extends StatelessWidget {
             ),
             Text(
               computer.operatingSystem ?? 'N/A',
-              style: kAppBarTitleStyle(),
+              style: kSubtitleStyle(),
             ),
             SizedBox(height: 16),
+            computer.isDetailsDisplayed
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Contact Information:',
+                        style: kAppBarTitleStyle(),
+                      ),
+                      Text(
+                        "-${computer.createdBy.email}",
+                        style: kSubtitleStyle(),
+                      ),
+                      Text(
+                        "-${computer.createdBy.phoneNumber}",
+                        style: kSubtitleStyle(),
+                      ),
+                    ],
+                  )
+                : Container(),
           ],
         ],
       ),
@@ -152,10 +170,7 @@ class PhoneView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return
-        // Right side with details
-        Expanded(
+    return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -287,6 +302,26 @@ class PhoneView extends StatelessWidget {
             ),
             SizedBox(height: 16),
           ],
+          SizedBox(height: 16),
+          phone.isDetailsDisplayed
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Contact Information:',
+                      style: kAppBarTitleStyle(),
+                    ),
+                    Text(
+                      "-${phone.createdBy.email}",
+                      style: kSubtitleStyle(),
+                    ),
+                    Text(
+                      "-${phone.createdBy.phoneNumber}",
+                      style: kSubtitleStyle(),
+                    ),
+                  ],
+                )
+              : Container(),
         ],
       ),
     );
@@ -303,7 +338,6 @@ class VehicleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -420,7 +454,25 @@ class VehicleView extends StatelessWidget {
             style: kSubtitleStyle(),
           ),
           SizedBox(height: 16),
-          // Add more Text widgets to display other details of the vehicle
+          vehicle.isDetailsDisplayed
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Contact Information:',
+                      style: kAppBarTitleStyle(),
+                    ),
+                    Text(
+                      "-${vehicle.createdBy.email}",
+                      style: kSubtitleStyle(),
+                    ),
+                    Text(
+                      "-${vehicle.createdBy.phoneNumber}",
+                      style: kSubtitleStyle(),
+                    ),
+                  ],
+                )
+              : Container(),
         ],
       ),
     );
@@ -437,7 +489,6 @@ class PrivateLessonView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -511,6 +562,25 @@ class PrivateLessonView extends StatelessWidget {
           ] else
             Text('N/A'),
           SizedBox(height: 16),
+          privateLesson.isDetailsDisplayed
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Contact Information:',
+                      style: kAppBarTitleStyle(),
+                    ),
+                    Text(
+                      "-${privateLesson.createdBy.email}",
+                      style: kSubtitleStyle(),
+                    ),
+                    Text(
+                      "-${privateLesson.createdBy.phoneNumber}",
+                      style: kSubtitleStyle(),
+                    ),
+                  ],
+                )
+              : Container(),
         ],
       ),
     );

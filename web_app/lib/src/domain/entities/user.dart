@@ -15,29 +15,35 @@ class User {
     required this.auth,
   });
 
-  User.copy(User param)
-      : this.id = param.id,
-        this.username = param.username,
-        this.email = param.email,
-        this.password = param.password,
-        this.phoneNumber = param.phoneNumber,
-        this.auth = param.auth;
-
-  Map<String, dynamic> toJson() {
-    return {
-      'username': username,
-      'email': email,
-      'password': password,
-      'phoneNumber': phoneNumber,
-      'auth': auth,
-    };
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['_id'],
+      username: json['username'],
+      email: json['email'],
+      password: json['password'],
+      phoneNumber: json['phoneNumber'],
+      auth: json['auth'],
+    );
   }
 
-  User.fromJson(Map<String, dynamic> map, String id)
-      : id = id,
-        username = map['username'],
-        email = map['email'],
-        password = map['password'],
-        phoneNumber = map['phoneNumber'],
-        auth = map['auth'];
+  Map<String, dynamic> toJson() {
+    if (id != '') {
+      return {
+        '_id': {"\$oid": id},
+        'username': username,
+        'email': email,
+        'password': password,
+        'phoneNumber': phoneNumber,
+        'auth': auth,
+      };
+    } else {
+      return {
+        'username': username,
+        'email': email,
+        'password': password,
+        'phoneNumber': phoneNumber,
+        'auth': auth,
+      };
+    }
+  }
 }

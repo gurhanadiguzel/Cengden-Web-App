@@ -35,26 +35,28 @@ class _HomeViewState extends ViewState<HomeView, HomeController> {
   Widget get view {
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: AppDrawer(),
-      appBar: AppBar(
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: Icon(
-              Icons.menu_rounded,
-              size: size.width * 0.025,
-            ),
-            onPressed: () => _scaffoldKey.currentState!.openDrawer(),
+    return ControlledWidgetBuilder<HomeController>(
+      builder: (context, controller) {
+        return Scaffold(
+          key: _scaffoldKey,
+          drawer: AppDrawer(
+            userRepository: controller.userRepository,
           ),
-        ),
-        toolbarHeight: size.height * 0.12,
-        title: const CengdenAppBar(),
-        iconTheme: IconThemeData(color: kPrimaryColor),
-      ),
-      body: ControlledWidgetBuilder<HomeController>(
-        builder: (context, controller) {
-          return SingleChildScrollView(
+          appBar: AppBar(
+            leading: Builder(
+              builder: (context) => IconButton(
+                icon: Icon(
+                  Icons.menu_rounded,
+                  size: 40,
+                ),
+                onPressed: () => _scaffoldKey.currentState!.openDrawer(),
+              ),
+            ),
+            toolbarHeight: size.height * 0.12,
+            title: const CengdenAppBar(),
+            iconTheme: IconThemeData(color: kPrimaryColor),
+          ),
+          body: SingleChildScrollView(
             child: Container(
               padding: EdgeInsets.all(20),
               child: controller.isGetItemsFetched
@@ -82,9 +84,9 @@ class _HomeViewState extends ViewState<HomeView, HomeController> {
                       child: CircularProgressIndicator(),
                     ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -156,6 +158,15 @@ class _ItemContainer extends StatelessWidget {
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: kPrimaryColorPale,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    item.createdBy.username,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
                   ),
                 ],

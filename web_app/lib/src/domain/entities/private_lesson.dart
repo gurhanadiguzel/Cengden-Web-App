@@ -1,4 +1,5 @@
 import 'package:web_app/src/domain/entities/item.dart';
+import 'package:web_app/src/domain/entities/user.dart';
 
 class PrivateLesson extends Item {
   String? tutorName;
@@ -12,6 +13,9 @@ class PrivateLesson extends Item {
     required String price,
     required String imageUrl,
     required String description,
+    required User createdBy,
+    required bool isDetailsDisplayed,
+    bool? isItemVisible,
     this.tutorName,
     this.lessons,
     this.location,
@@ -22,33 +26,41 @@ class PrivateLesson extends Item {
           price: price,
           imageUrl: imageUrl,
           description: description,
+          createdBy: createdBy,
+          isDetailsDisplayed: isDetailsDisplayed,
+          isItemVisible: isItemVisible,
         );
 
   factory PrivateLesson.fromJson(Map<String, dynamic> json) {
     return PrivateLesson(
       id: json['_id'] ?? '',
-      title: json['Title'],
-      tutorName: json['Tutor Name'],
+      title: json['Title'] ?? '',
+      price: json['Price'] ?? '',
+      imageUrl: json['Image'] ?? '',
+      description: json['Description'] ?? '',
+      createdBy: User.fromJson(json['Created By']),
+      isDetailsDisplayed: json['Details Display'] ?? false,
+      isItemVisible: json['Item Visibility'] ?? true,
+      tutorName: json['Tutor Name'] ?? '',
       lessons: (json['Lessons'] as List<dynamic>).cast<String>(),
-      location: json['Location'],
-      duration: json['Duration'],
-      price: json['Price'],
-      imageUrl: json['Image'],
-      description: json['Description'],
+      location: json['Location'] ?? '',
+      duration: json['Duration'] ?? '',
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      '_id': id,
       'Title': title,
+      'Price': price,
+      'Image': imageUrl,
+      'Description': description,
+      'Created By': createdBy.toJson(),
+      'Details Display': isDetailsDisplayed,
+      'Item Visibility': isItemVisible,
       'Tutor Name': tutorName,
       'Lessons': lessons,
       'Location': location,
       'Duration': duration,
-      'Price': price,
-      'Image': imageUrl,
-      'Description': description,
     };
   }
 }

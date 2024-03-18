@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:http/http.dart' as https;
 import 'package:web_app/src/app/constants.dart';
 import 'package:web_app/src/domain/entities/computer.dart';
 import 'package:web_app/src/domain/entities/item.dart';
@@ -55,7 +54,9 @@ class DataItemRepository implements ItemRepository {
             "dataSource": dataSource,
             "database": database,
             "collection": "computers",
-            "filter": {},
+            "filter": {
+              "Item Visibility": true,
+            },
           },
         ),
       );
@@ -88,7 +89,9 @@ class DataItemRepository implements ItemRepository {
             "dataSource": dataSource,
             "database": database,
             "collection": "phones",
-            "filter": {},
+            "filter": {
+              "Item Visibility": true,
+            },
           },
         ),
       );
@@ -121,7 +124,9 @@ class DataItemRepository implements ItemRepository {
             "dataSource": dataSource,
             "database": database,
             "collection": "vehicles",
-            "filter": {},
+            "filter": {
+              "Item Visibility": true,
+            },
           },
         ),
       );
@@ -154,7 +159,9 @@ class DataItemRepository implements ItemRepository {
             "dataSource": dataSource,
             "database": database,
             "collection": "privateLessons",
-            "filter": {},
+            "filter": {
+              "Item Visibility": true,
+            },
           },
         ),
       );
@@ -177,10 +184,10 @@ class DataItemRepository implements ItemRepository {
   @override
   Future<void> addItem(Item item) async {
     try {
-      var response = await https.post(
-        Uri.parse("$endpoint/action/add"),
-        headers: headers,
-        body: jsonEncode(
+      var response = await dio.post(
+        "$endpoint/action/insertOne",
+        options: Options(headers: headers),
+        data: jsonEncode(
           {
             "dataSource": dataSource,
             "database": database,
@@ -190,8 +197,10 @@ class DataItemRepository implements ItemRepository {
         ),
       );
 
-      if (response.statusCode != 200) {
-        throw Exception('Error adding item: ${response.statusCode}');
+      if (response.statusCode == 201) {
+        print('Item added successfully.');
+      } else {
+        throw Exception('Error adding item: ${response.data}');
       }
     } catch (e) {
       print('Error adding item: $e');
@@ -217,7 +226,9 @@ class DataItemRepository implements ItemRepository {
         ),
       );
 
-      if (response.statusCode != 200) {
+      if (response.statusCode == 200) {
+        print('Deletion of item has been successful.');
+      } else {
         throw Exception('Error deleting item: ${response.data}');
       }
     } catch (e) {

@@ -13,7 +13,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-# TODO
 # Architecture
   flutter_clean_architecture:
     git:

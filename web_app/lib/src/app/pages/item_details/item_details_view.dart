@@ -12,6 +12,7 @@ import 'package:web_app/src/domain/entities/computer.dart';
 import 'package:web_app/src/domain/entities/item.dart';
 import 'package:web_app/src/domain/entities/phone.dart';
 import 'package:web_app/src/domain/entities/private_lesson.dart';
+import 'package:web_app/src/domain/entities/user.dart';
 import 'package:web_app/src/domain/entities/vehicle.dart';
 
 class ItemDetailsView extends View {
@@ -44,96 +45,104 @@ class _ItemDetailsState extends ViewState<ItemDetailsView, ItemDetailsController
   @override
   Widget get view {
     Size size = MediaQuery.of(context).size;
+    return ControlledWidgetBuilder<ItemDetailsController>(
+      builder: (context, controller) {
+        User? user = controller.userRepository.getUser();
 
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: AppDrawer(),
-      appBar: AppBar(
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: Icon(
-              Icons.menu_rounded,
-              size: size.width * 0.025,
-            ),
-            onPressed: () => _scaffoldKey.currentState!.openDrawer(),
+        return Scaffold(
+          key: _scaffoldKey,
+          drawer: AppDrawer(
+            userRepository: controller.userRepository,
           ),
-        ),
-        toolbarHeight: size.height * 0.12,
-        title: const CengdenAppBar(),
-        iconTheme: IconThemeData(color: kPrimaryColor),
-      ),
-      body: ControlledWidgetBuilder<ItemDetailsController>(builder: (context, contoller) {
-        return SingleChildScrollView(
-          padding: EdgeInsets.all(16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Left side with image
-              Column(
-                children: [
-                  Container(
-                    width: size.width / 3,
-                    margin: EdgeInsets.only(right: 16),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: Offset(0, 3),
+          appBar: AppBar(
+            leading: Builder(
+              builder: (context) => IconButton(
+                icon: Icon(
+                  Icons.menu_rounded,
+                  size: size.width * 0.025,
+                ),
+                onPressed: () => _scaffoldKey.currentState!.openDrawer(),
+              ),
+            ),
+            toolbarHeight: size.height * 0.12,
+            title: const CengdenAppBar(),
+            iconTheme: IconThemeData(color: kPrimaryColor),
+          ),
+          body: SingleChildScrollView(
+            padding: EdgeInsets.all(16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Left side with image
+                Column(
+                  children: [
+                    Container(
+                      width: size.width / 3,
+                      margin: EdgeInsets.only(right: 16),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.network(
+                          item.imageUrl,
+                          fit: BoxFit.cover,
                         ),
-                      ],
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.network(
-                        item.imageUrl,
-                        fit: BoxFit.cover,
                       ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  Container(
-                    width: size.width / 3,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            CengdenNavigator.navigateToUpdateItemView(context, item);
-                          },
-                          icon: Icon(
-                            Icons.edit,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            contoller.deleteItem(item);
-                            Navigator.pop(context);
-                          },
-                          icon: Icon(
-                            Icons.delete,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              // Right side with details
-              item is Computer
-                  ? ComputerView(computer: item as Computer)
-                  : item is Phone
-                      ? PhoneView(phone: item as Phone)
-                      : item is Vehicle
-                          ? VehicleView(vehicle: item as Vehicle)
-                          : PrivateLessonView(privateLesson: item as PrivateLesson),
-            ],
+                    SizedBox(height: 10),
+                    //(user != null && (user.auth == 'admin' || item.createdBy.username == user.username))
+                    user == null
+                        ? Container(
+                            width: size.width / 3,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    CengdenNavigator.navigateToUpdateItemView(context, item);
+                                  },
+                                  icon: Icon(
+                                    Icons.edit,
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    controller.deleteItem(item);
+                                    Navigator.pop(context);
+                                  },
+                                  icon: Icon(
+                                    Icons.delete,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Container(),
+                  ],
+                ),
+                // Right side with details
+                item is Computer
+                    ? ComputerView(computer: item as Computer)
+                    : item is Phone
+                        ? PhoneView(phone: item as Phone)
+                        : item is Vehicle
+                            ? VehicleView(vehicle: item as Vehicle)
+                            : PrivateLessonView(privateLesson: item as PrivateLesson),
+              ],
+            ),
           ),
         );
-      }),
+      },
     );
   }
 }

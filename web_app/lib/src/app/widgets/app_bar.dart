@@ -17,15 +17,13 @@ class CengdenAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(
-            width: size.width * 0.1, // 10% of the screen width
-            height: size.height * 0.06, // 6% of the screen height
+            width: 40,
+            height: 40,
           ),
           Container(
-            width: size.width * 0.25,
+            width: 350,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(
-                size.width * 0.01,
-              ), // 1% of the screen width
+              borderRadius: BorderRadius.circular(50),
               child: Image.network(
                 'https://raw.githubusercontent.com/gurhanadiguzel/Flutter-Projects/main/images/cengden.png',
                 fit: BoxFit.cover,
@@ -33,7 +31,7 @@ class CengdenAppBar extends StatelessWidget {
             ),
           ),
           Container(
-            width: size.width * 0.05,
+            width: 60,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(size.width * 0.01), // 1% of the screen width
               child: Image.network(

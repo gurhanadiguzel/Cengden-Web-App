@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:web_app/src/app/navigator.dart';
+import 'package:web_app/src/domain/entities/user.dart';
+import 'package:web_app/src/domain/repositories/user_repository.dart';
 
 class AppDrawer extends StatelessWidget {
+  final UserRepository userRepository;
+
+  AppDrawer({required this.userRepository});
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
+    User? user = userRepository.getUser();
     return Drawer(
       backgroundColor: Colors.white,
       child: Container(
@@ -66,7 +72,7 @@ class AppDrawer extends StatelessWidget {
             ListTile(
               title: Row(
                 children: [
-                  Icon(Icons.car_crash_outlined),
+                  Icon(Icons.directions_car_outlined),
                   SizedBox(width: 5),
                   Text('Vehicles'),
                 ],
@@ -89,17 +95,51 @@ class AppDrawer extends StatelessWidget {
                 CengdenNavigator.navigateToHomeView(context, 'privateLessons');
               },
             ),
+            user != null
+                ? Column(
+                    children: [
+                      ListTile(
+                        title: Row(
+                          children: [
+                            Icon(Icons.add_outlined),
+                            SizedBox(width: 5),
+                            Text('Add Item'),
+                          ],
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                          CengdenNavigator.navigateToAddItemView(context);
+                        },
+                      ),
+                      ListTile(
+                        title: Row(
+                          children: [
+                            Icon(Icons.bookmark),
+                            SizedBox(width: 5),
+                            Text('Favorite Items'),
+                          ],
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                          CengdenNavigator.navigateToHomeView(context, 'no');
+                        },
+                      ),
+                    ],
+                  )
+                : Container(),
             ListTile(
               title: Row(
                 children: [
                   Icon(Icons.account_circle_outlined),
                   SizedBox(width: 5),
-                  Text('Profile'),
+                  user == null ? Text('Profile') : Text(user.username),
                 ],
               ),
               onTap: () {
                 Navigator.pop(context);
-                CengdenNavigator.navigateToRegisterView(context);
+                user != null
+                    ? CengdenNavigator.navigateToProfileView(context)
+                    : CengdenNavigator.navigateToRegisterView(context);
               },
             ),
           ],

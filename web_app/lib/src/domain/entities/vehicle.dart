@@ -1,4 +1,5 @@
 import 'package:web_app/src/domain/entities/item.dart';
+import 'package:web_app/src/domain/entities/user.dart';
 
 class Vehicle extends Item {
   String? type;
@@ -22,6 +23,9 @@ class Vehicle extends Item {
     required String price,
     required String imageUrl,
     required String description,
+    required User createdBy,
+    required bool isDetailsDisplayed,
+    bool? isItemVisible,
     this.type,
     this.brand,
     this.model,
@@ -42,12 +46,21 @@ class Vehicle extends Item {
           price: price,
           imageUrl: imageUrl,
           description: description,
+          createdBy: createdBy,
+          isDetailsDisplayed: isDetailsDisplayed,
+          isItemVisible: isItemVisible,
         );
 
   factory Vehicle.fromJson(Map<String, dynamic> json) {
     return Vehicle(
       id: json['_id'],
       title: json['Title'],
+      price: json['Price'],
+      imageUrl: json['Image'],
+      description: json['Description'],
+      createdBy: User.fromJson(json['Created By']),
+      isDetailsDisplayed: json['Details Display'] ?? false,
+      isItemVisible: json['Item Visibility'] ?? true,
       type: json['Type'],
       brand: json['Brand'],
       model: json['Model'],
@@ -57,9 +70,6 @@ class Vehicle extends Item {
       fuelType: json['FuelType'],
       transmissionType: json['TransmissionType'],
       mileage: json['Mileage'],
-      price: json['Price'],
-      imageUrl: json['Image'],
-      description: json['Description'],
       batteryCapacity: json['Battery Capacity'] ?? '',
       range: json['Range'] ?? '',
       bedCapacity: json['Bed Capacity'] ?? '',
@@ -69,9 +79,14 @@ class Vehicle extends Item {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      '_id': id,
+    final Map<String, dynamic> json = {
       'Title': title,
+      'Price': price,
+      'Image': imageUrl,
+      'Description': description,
+      'Created By': createdBy.toJson(),
+      'Details Display': isDetailsDisplayed,
+      'Item Visibility': isItemVisible,
       'Type': type,
       'Brand': brand,
       'Model': model,
@@ -81,14 +96,13 @@ class Vehicle extends Item {
       'FuelType': fuelType,
       'TransmissionType': transmissionType,
       'Mileage': mileage,
-      'Price': price,
-      'Image': imageUrl,
-      'Description': description,
       'Battery Capacity': batteryCapacity,
       'Range': range,
       'Bed Capacity': bedCapacity,
       'Water Tank Capacity': waterTankCapacity,
       'Payload Capacity': payloadCapacity,
     };
+    json.removeWhere((key, value) => value == null);
+    return json;
   }
 }
