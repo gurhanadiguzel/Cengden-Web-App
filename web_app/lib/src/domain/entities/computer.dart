@@ -9,7 +9,7 @@ class Computer extends Item {
   String? processor;
   String? ram;
   Map<String, String>? storage;
-  String? graphicCard;
+  String? graphicsCard;
   String? operatingSystem;
 
   Computer({
@@ -20,7 +20,7 @@ class Computer extends Item {
     required String description,
     required User createdBy,
     required bool isDetailsDisplayed,
-    bool? isItemVisible,
+    bool? isVisible,
     this.type,
     this.brand,
     this.model,
@@ -28,7 +28,7 @@ class Computer extends Item {
     this.processor,
     this.ram,
     this.storage,
-    this.graphicCard,
+    this.graphicsCard,
     this.operatingSystem,
   }) : super(
           id: id,
@@ -38,7 +38,7 @@ class Computer extends Item {
           description: description,
           createdBy: createdBy,
           isDetailsDisplayed: isDetailsDisplayed,
-          isItemVisible: isItemVisible,
+          isVisible: isVisible,
         );
 
   factory Computer.fromJson(Map<String, dynamic> json) {
@@ -50,7 +50,7 @@ class Computer extends Item {
       description: json['Description'] ?? '',
       createdBy: User.fromJson(json['Created By']),
       isDetailsDisplayed: json['Details Display'] ?? false,
-      isItemVisible: json['Item Visibility'] ?? true,
+      isVisible: json['Item Visibility'] ?? true,
       type: json['Type'] ?? '',
       brand: json['Brand'] ?? '',
       model: json['Model'] ?? '',
@@ -58,7 +58,7 @@ class Computer extends Item {
       processor: json['Processor'] ?? '',
       ram: json['RAM'] ?? '',
       storage: Map<String, String>.from(json['Storage']),
-      graphicCard: json['Graphics Card'] ?? '',
+      graphicsCard: json['Graphics Card'] ?? '',
       operatingSystem: json['Operating System'] ?? '',
     );
   }
@@ -72,7 +72,7 @@ class Computer extends Item {
       'Description': description,
       'Created By': createdBy.toJson(),
       'Details Display': isDetailsDisplayed,
-      'Item Visibility': isItemVisible,
+      'Item Visibility': isVisible,
       'Type': type,
       'Brand': brand,
       'Model': model,
@@ -80,7 +80,7 @@ class Computer extends Item {
       'Processor': processor,
       'RAM': ram,
       'Storage': storage,
-      'Graphics Card': graphicCard,
+      'Graphics Card': graphicsCard,
       'Operating System': operatingSystem,
     };
   }

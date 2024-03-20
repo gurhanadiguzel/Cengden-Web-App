@@ -8,7 +8,7 @@ abstract class Item {
   String description;
   User createdBy;
   bool isDetailsDisplayed;
-  bool? isItemVisible;
+  bool? isVisible;
 
   Item({
     required this.id,
@@ -18,8 +18,8 @@ abstract class Item {
     required this.description,
     required this.createdBy,
     required this.isDetailsDisplayed,
-    bool? isItemVisible,
-  }) : isItemVisible = isItemVisible ?? true;
+    bool? isVisible,
+  }) : isVisible = isVisible ?? true;
 
   factory Item.fromJson(Map<String, dynamic> json) {
     throw UnimplementedError('fromJson must be implemented in concrete subclass');

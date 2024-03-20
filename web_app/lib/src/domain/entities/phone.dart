@@ -20,7 +20,7 @@ class Phone extends Item {
     required String description,
     required User createdBy,
     required bool isDetailsDisplayed,
-    bool? isItemVisible,
+    bool? isVisible,
     this.brand,
     this.model,
     this.year,
@@ -38,7 +38,7 @@ class Phone extends Item {
           description: description,
           createdBy: createdBy,
           isDetailsDisplayed: isDetailsDisplayed,
-          isItemVisible: isItemVisible,
+          isVisible: isVisible,
         );
 
   factory Phone.fromJson(Map<String, dynamic> json) {
@@ -50,7 +50,7 @@ class Phone extends Item {
       description: json['Description'],
       createdBy: User.fromJson(json['Created By']),
       isDetailsDisplayed: json['Details Display'] ?? false,
-      isItemVisible: json['Item Visibility'] ?? true,
+      isVisible: json['Item Visibility'] ?? true,
       brand: json['Brand'],
       model: json['Model'],
       year: json['Year'],
@@ -72,7 +72,7 @@ class Phone extends Item {
       'Description': description,
       'Created By': createdBy.toJson(),
       'Details Display': isDetailsDisplayed,
-      'Item Visibility': isItemVisible,
+      'Item Visibility': isVisible,
       'Brand': brand,
       'Model': model,
       'Year': year,

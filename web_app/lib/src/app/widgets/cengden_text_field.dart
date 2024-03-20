@@ -39,7 +39,7 @@ class CengdenTextField extends StatelessWidget {
             ),
           ),
           SizedBox(height: 6),
-          TextField(
+          TextFormField(
             style: TextStyle(height: 1),
             obscureText: isObscure,
             decoration: InputDecoration(
@@ -51,9 +51,8 @@ class CengdenTextField extends StatelessWidget {
               hintStyle: TextStyle(color: kBlackHint),
               hintText: hintText,
             ),
-            onChanged: (value) {
-              onChanged(value);
-            },
+            onChanged: onChanged,
+            initialValue: initialValue,
           ),
         ],
       ),

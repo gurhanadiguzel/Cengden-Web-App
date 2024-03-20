@@ -1,5 +1,4 @@
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
-import 'package:web_app/src/domain/entities/item.dart';
 import 'package:web_app/src/domain/entities/vehicle.dart';
 import 'package:web_app/src/domain/repositories/item_controller.dart';
 import 'package:web_app/src/domain/repositories/item_repository.dart';
@@ -15,20 +14,23 @@ class UpdateItemController extends Controller implements ItemController {
 
   UserRepository _userRepository;
   ItemRepository _itemRepository;
-  Item item;
+  dynamic item;
 
   @override
   void initListeners() {}
 
-  void updateItem() {
-    // Implement logic to update the item
+  void updateItem() async {
+    await _itemRepository.updateItem(item);
   }
 
-  @override
-  void onInitState() {
-    super.onInitState();
-    // Implement logic to fetch the selected item using itemId
-    // Populate the fields with the item's current values
+  void toggleDetailsDisplay(bool value) {
+    item.isDetailsDisplayed = !item.isDetailsDisplayed;
+    refreshUI();
+  }
+
+  void toggleVisible(bool value) {
+    item.isVisible = !item.isVisible;
+    refreshUI();
   }
 
   void setTitle(String? value) {
@@ -52,135 +54,186 @@ class UpdateItemController extends Controller implements ItemController {
   }
 
   @override
+  void setType(String? value) {
+    item.type = value;
+    refreshUI();
+  }
+
+  @override
   void setBrand(String? value) {
-    // TODO: implement setBrand
+    item.brand = value;
+    refreshUI();
   }
 
   @override
   void setGraphicCard(String? value) {
-    // TODO: implement setGraphicCard
+    item.graphicsCard = value;
+    refreshUI();
   }
 
   @override
   void setModel(String? value) {
-    // TODO: implement setModel
+    item.model = value;
+    refreshUI();
   }
 
   @override
   void setOperatingSystem(String? value) {
-    // TODO: implement setOperatingSystem
+    item.operatingSystem = value;
+    refreshUI();
   }
 
   @override
   void setProcessor(String? value) {
-    // TODO: implement setProcessor
+    item.processor = value;
+    refreshUI();
   }
 
   @override
   void setRAM(String? value) {
-    // TODO: implement setRAM
+    item.ram = value;
+    refreshUI();
   }
 
   @override
   void setStorageComputer(String? value) {
-    // TODO: implement setStorageComputer
-  }
-
-  @override
-  void setType(String? value) {
-    // TODO: implement setType
+    if (value != null) {
+      item.storage = Map.fromEntries(
+        value.split(',').map(
+          (option) {
+            final keyValue = option.trim().split(':');
+            final key = keyValue[0].trim();
+            final value = keyValue[1].trim();
+            return MapEntry(key, value);
+          },
+        ),
+      );
+    } else {
+      item.storage = null;
+    }
+    refreshUI();
   }
 
   @override
   void setYear(String? value) {
-    // TODO: implement setYear
+    item.year = value;
   }
 
   @override
   String? getCarType() {
     if (item is Vehicle) {
       Vehicle vehicle = item as Vehicle;
+      refreshUI();
       return vehicle.type;
     }
   }
 
   @override
   void setBatteryCapacity(String? value) {
-    // TODO: implement setBatteryCapacity
+    item.batteryCapacity = value;
+    refreshUI();
   }
 
   @override
   void setBedCapacity(String? value) {
-    // TODO: implement setBedCapacity
+    item.bedCapacity = value;
+    refreshUI();
   }
 
   @override
   void setCameraSpesifications(String? value) {
-    // TODO: implement setCameraSpesifications
+    if (value != null) {
+      item.cameraSpecifications = Map.fromEntries(
+        value.split(',').map(
+          (option) {
+            final keyValue = option.trim().split(':');
+            final key = keyValue[0].trim();
+            final value = keyValue[1].trim();
+            return MapEntry(key, value);
+          },
+        ),
+      );
+    } else {
+      item.cameraSpecifications = null;
+    }
+    refreshUI();
   }
 
   @override
   void setColor(String? value) {
-    // TODO: implement setColor
+    item.color = value;
+    refreshUI();
   }
 
   @override
   void setEngineDisplacement(String? value) {
-    // TODO: implement setEngineDisplacement
+    item.engineDisplacement = value;
+    refreshUI();
   }
 
   @override
   void setFuelType(String? value) {
-    // TODO: implement setFuelType
+    item.fuelType = value;
+    refreshUI();
   }
 
   @override
   void setMileage(String? value) {
-    // TODO: implement setMileage
+    item.mileage = value;
+    refreshUI();
   }
 
   @override
   void setPayloadCapacity(String? value) {
-    // TODO: implement setPayloadCapacity
+    item.payloadCapacity = value;
+    refreshUI();
   }
 
   @override
   void setRange(String? value) {
-    // TODO: implement setRange
+    item.range = value;
+    refreshUI();
   }
 
   @override
   void setStoragePhone(String? value) {
-    // TODO: implement setStoragePhone
+    item.storage = value;
+    refreshUI();
   }
 
   @override
   void setTransmissionType(String? value) {
-    // TODO: implement setTransmissionType
+    item.transmissionType = value;
+    refreshUI();
   }
 
   @override
   void setWaterTankCapacity(String? value) {
-    // TODO: implement setWaterTankCapacity
+    item.waterTankCapacity = value;
+    refreshUI();
   }
 
   @override
   void setDuration(String? value) {
-    // TODO: implement setDuration
+    item.duration = value;
+    refreshUI();
   }
 
   @override
   void setLessons(String? value) {
-    // TODO: implement setLessons
+    item.lessons = value!.split(',');
+    refreshUI();
   }
 
   @override
   void setLocation(String? value) {
-    // TODO: implement setLocation
+    item.location = value;
+    refreshUI();
   }
 
   @override
   void setTutorName(String? value) {
-    // TODO: implement setTutorName
+    item.tutorName = value;
+    refreshUI();
   }
 }

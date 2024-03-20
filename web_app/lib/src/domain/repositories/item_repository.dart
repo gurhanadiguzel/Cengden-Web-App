@@ -8,4 +8,5 @@ abstract class ItemRepository {
   Future<List<Item>> getPrivateLessons();
   Future<void> addItem(Item item);
   Future<void> deleteItem(Item item);
+  Future<void> updateItem(Item item);
 }

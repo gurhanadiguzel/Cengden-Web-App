@@ -88,9 +88,7 @@ class _RegisterViewState extends ViewState<RegisterView, RegisterController> {
                                   hintText: "Your email",
                                   isObscure: false,
                                   onChanged: controller.setEmailLogin,
-                                  color: (controller.isEmailValid == false || controller.isLoginValid == false)
-                                      ? Colors.red
-                                      : null,
+                                  color: (controller.isLoginValid == false) ? Colors.red : null,
                                 ),
                                 SizedBox(height: 20),
                                 CengdenTextField(
@@ -126,19 +124,7 @@ class _RegisterViewState extends ViewState<RegisterView, RegisterController> {
                                   Text(
                                     "User information is not correct!",
                                     textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                if (controller.isEmailValid == false)
-                                  Text(
-                                    "Email is not a valid email!",
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                    style: kSubtitleStyle(),
                                   ),
                                 SizedBox(height: 40),
                               ],
@@ -183,7 +169,7 @@ class _RegisterViewState extends ViewState<RegisterView, RegisterController> {
                                   hintText: "Your email",
                                   isObscure: false,
                                   onChanged: controller.setEmail,
-                                  color: controller.isEmailAvaliable == false ? Colors.red : null,
+                                  color: controller.isEmailValid == false ? Colors.red : null,
                                 ),
                                 SizedBox(height: 20),
                                 CengdenTextField(
@@ -200,7 +186,7 @@ class _RegisterViewState extends ViewState<RegisterView, RegisterController> {
                                   hintText: "Your Password",
                                   isObscure: true,
                                   onChanged: controller.setPasswordAgain,
-                                  color: controller.passwordsMatch == false ? Colors.red : null,
+                                  color: controller.isPasswordsMatch == false ? Colors.red : null,
                                 ),
                                 SizedBox(height: 20),
                                 CengdenTextField(
@@ -241,10 +227,24 @@ class _RegisterViewState extends ViewState<RegisterView, RegisterController> {
                                   text: "Sign Up",
                                   onPressed: () {
                                     controller.signUp(context);
+                                    if (controller.isRegisterValid) _showVerificationCodePopup(context, controller);
                                   },
                                   isEnabled: controller.isFieldsAreInitializedForRegister(),
                                   isLoading: controller.isLoading,
                                 ),
+                                SizedBox(height: 25),
+                                if (controller.isEmailValid == false)
+                                  Text(
+                                    "Email is not a valid email!",
+                                    textAlign: TextAlign.start,
+                                    style: kSubtitleStyle(),
+                                  ),
+                                if (controller.isPasswordsMatch == false)
+                                  Text(
+                                    "Passwords are not the same!",
+                                    textAlign: TextAlign.start,
+                                    style: kSubtitleStyle(),
+                                  ),
                               ],
                             ),
                           ),
@@ -260,4 +260,46 @@ class _RegisterViewState extends ViewState<RegisterView, RegisterController> {
       },
     );
   }
+}
+
+Future<void> _showVerificationCodePopup(BuildContext context, RegisterController controller) async {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Verification Code'),
+        content: Container(
+          width: 350,
+          child: Column(
+            mainAxisSize: MainAxisSize.min, // Ensure that the dialog takes up minimum space
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 6),
+              CengdenTextField(
+                size: MediaQuery.of(context).size, // Adjust size here
+                title: "Verification Code",
+                hintText: "Enter verification code",
+                isObscure: false,
+                onChanged: controller.setUserVerificationCode,
+              ),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              controller.verifyCode(context);
+            },
+            child: Text('Verify'),
+          ),
+        ],
+      );
+    },
+  );
 }

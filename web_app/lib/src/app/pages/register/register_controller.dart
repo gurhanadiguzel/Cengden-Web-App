@@ -1,7 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:web_app/src/app/navigator.dart';
-import 'package:web_app/src/data/exceptions/invalid_email_exception.dart';
 import 'package:web_app/src/data/exceptions/invalid_login_exception.dart';
 import 'package:web_app/src/domain/entities/user.dart';
 import 'package:web_app/src/domain/repositories/user_repository.dart';
@@ -22,66 +23,78 @@ class RegisterController extends Controller {
   String password = '';
   String passwordAgain = '';
   String phoneNumber = '';
+  String userVerificationCode = '';
   bool termsAndPrivacyAccepted = false;
 
   bool isLoading = false;
   bool? isLoginValid;
   bool? isEmailValid;
-  bool? isEmailAvaliable;
+  bool isRegisterValid = false;
   bool? isUsernameAvaliable;
-  bool? passwordsMatch;
+  bool? isPasswordsMatch;
+
+  String? verifiedCode;
 
   @override
   void initListeners() {}
 
   void setEmailLogin(String value) {
-    this.emailLogin = value;
-    isEmailValid = null;
+    emailLogin = value;
     isLoginValid = null;
     refreshUI();
   }
 
   void setPasswordLogin(String value) {
-    this.passwordLogin = value;
+    passwordLogin = value;
     isLoginValid = null;
     refreshUI();
   }
 
   void setUsername(String value) {
     isUsernameAvaliable = null;
-    this.username = value;
+    username = value;
     refreshUI();
   }
 
   void setEmail(String value) {
-    isEmailAvaliable = null;
-    this.email = value;
+    isEmailValid = null;
+    email = value;
     refreshUI();
   }
 
   void setPassword(String value) {
-    passwordsMatch = null;
-    this.password = value;
+    isPasswordsMatch = null;
+    password = value;
     refreshUI();
   }
 
   void setPasswordAgain(String value) {
-    passwordsMatch = null;
-    this.passwordAgain = value;
+    isPasswordsMatch = null;
+    passwordAgain = value;
     refreshUI();
   }
 
   void setPhoneNumber(String value) {
-    this.phoneNumber = value;
+    phoneNumber = value;
+    refreshUI();
+  }
+
+  void setUserVerificationCode(String value) {
+    userVerificationCode = value;
     refreshUI();
   }
 
   bool isFieldsAreInitializedForLogin() {
-    return this.emailLogin != '' && this.passwordLogin != '';
+    return emailLogin != '' && passwordLogin != '';
   }
 
   bool isFieldsAreInitializedForRegister() {
-    return this.email != '' && this.password != '' && this.username != '' && this.termsAndPrivacyAccepted;
+    return email != '' &&
+        password != '' &&
+        username != '' &&
+        passwordAgain != '' &&
+        phoneNumber != '' &&
+        termsAndPrivacyAccepted;
   }
 
   void toggleTermsAndPolicy() {
@@ -95,9 +108,7 @@ class RegisterController extends Controller {
     try {
       await userRepository.logIn(emailLogin, passwordLogin);
     } catch (e) {
-      if (e is InvalidEmailException) {
-        isEmailValid = false;
-      } else if (e is InvalidLoginException) {
+      if (e is InvalidLoginException) {
         isLoginValid = false;
       }
     }
@@ -114,12 +125,37 @@ class RegisterController extends Controller {
 
   void signUp(BuildContext context) async {
     isLoading = true;
-    if (password != passwordAgain) {
-      passwordsMatch = false;
+    refreshUI();
+
+    if (!isValidEmail(email)) {
+      isRegisterValid = false;
+      isEmailValid = false;
       isLoading = false;
       refreshUI();
       return;
     }
+
+    if (password != passwordAgain) {
+      isRegisterValid = false;
+      isPasswordsMatch = false;
+      isLoading = false;
+      refreshUI();
+      return;
+    }
+
+    try {
+      generateSixDigitCode();
+      isRegisterValid = true;
+      await userRepository.sendVerificationCode(verifiedCode!, email);
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+    isLoading = false;
+    refreshUI();
+  }
+
+  void verifyCode(BuildContext context) async {
     user = User(
       id: '',
       username: username,
@@ -128,18 +164,32 @@ class RegisterController extends Controller {
       phoneNumber: phoneNumber,
       auth: 'user',
     );
-
     try {
-      await userRepository.signUp(user!);
+      if (userVerificationCode == verifiedCode) {
+        print("Code is correct");
+        await userRepository.signUp(user!);
+        Navigator.of(context).pop();
+        CengdenNavigator.navigateToHomeView(context, 'no');
+        refreshUI();
+      } else {
+        print("Code is wrong");
+      }
     } catch (e, st) {
       print(e);
       print(st);
       rethrow;
     }
-    if (isEmailAvaliable == false) {}
-    isLoading = false;
-    CengdenNavigator.navigateToHomeView(context, 'no');
+  }
 
-    refreshUI();
+  bool isValidEmail(String email) {
+    return email.endsWith('@ceng.metu.edu.tr');
+  }
+
+  void generateSixDigitCode() {
+    Random random = Random();
+    int min = 100000;
+    int max = 999999;
+    int code = min + random.nextInt(max - min);
+    verifiedCode = code.toString();
   }
 }

@@ -267,7 +267,7 @@ class AddItemController extends Controller implements ItemController {
             processor: processor,
             ram: ram,
             storage: computerStorage,
-            graphicCard: graphicCard,
+            graphicsCard: graphicCard,
             operatingSystem: operatingSystem,
           );
           break;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' hide View;
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:web_app/src/app/constants.dart';
 import 'package:web_app/src/app/pages/update_item/update_item_controller.dart';
 import 'package:web_app/src/app/widgets/cengden_text_field.dart';
 import 'package:web_app/src/app/widgets/item_fields_widgets.dart';
@@ -76,6 +77,7 @@ class _UpdateItemViewState extends ViewState<UpdateItemView, UpdateItemControlle
                   // Right side with details
                   Container(
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         CengdenTextField(
                           size: size * 2,
@@ -113,14 +115,92 @@ class _UpdateItemViewState extends ViewState<UpdateItemView, UpdateItemControlle
                           initialValue: controller.item.description,
                         ),
                         controller.item is Computer
-                            ? ComputerFieldsWidget(controller: controller)
+                            ? ComputerFieldsWidget(
+                                controller: controller,
+                                computer: controller.item as Computer,
+                              )
                             : controller.item is Phone
-                                ? PhoneFieldsWidget(controller: controller)
+                                ? PhoneFieldsWidget(
+                                    controller: controller,
+                                    phone: controller.item as Phone,
+                                  )
                                 : controller.item is Vehicle
-                                    ? VehicleFieldsWidget(controller: controller)
+                                    ? VehicleFieldsWidget(
+                                        controller: controller,
+                                        vehicle: controller.item as Vehicle,
+                                      )
                                     : controller.item is PrivateLesson
-                                        ? PrivateLessonFieldsWidget(controller: controller)
+                                        ? PrivateLessonFieldsWidget(
+                                            controller: controller,
+                                            privateLesson: controller.item as PrivateLesson,
+                                          )
                                         : const SizedBox(),
+                        SizedBox(height: 20),
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                "Contact Details Display",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Container(
+                                height: 25,
+                                width: 50,
+                                child: Switch(
+                                  trackOutlineColor:
+                                      MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+                                    return kWhite;
+                                  }),
+                                  thumbColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
+                                    return kWhite;
+                                  }),
+                                  activeColor: kPrimaryColor,
+                                  inactiveTrackColor: kDeactiveColor,
+                                  value: controller.item.isDetailsDisplayed,
+                                  onChanged: controller.toggleDetailsDisplay,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                "Item Visibility",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Container(
+                                height: 25,
+                                width: 50,
+                                child: Switch(
+                                  trackOutlineColor:
+                                      MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+                                    return kWhite;
+                                  }),
+                                  thumbColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
+                                    return kWhite;
+                                  }),
+                                  activeColor: kPrimaryColor,
+                                  inactiveTrackColor: kDeactiveColor,
+                                  value: controller.item.isVisible,
+                                  onChanged: controller.toggleVisible,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -129,12 +209,15 @@ class _UpdateItemViewState extends ViewState<UpdateItemView, UpdateItemControlle
             ),
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: controller.updateItem,
+            onPressed: () {
+              controller.updateItem();
+              Navigator.pop(context);
+            },
             child: Container(
               width: 100,
               height: 100,
               child: Icon(
-                Icons.save_outlined,
+                Icons.check_circle_outline_outlined,
                 size: 50,
               ),
             ),

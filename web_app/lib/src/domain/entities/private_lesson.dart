@@ -15,7 +15,7 @@ class PrivateLesson extends Item {
     required String description,
     required User createdBy,
     required bool isDetailsDisplayed,
-    bool? isItemVisible,
+    bool? isVisible,
     this.tutorName,
     this.lessons,
     this.location,
@@ -28,7 +28,7 @@ class PrivateLesson extends Item {
           description: description,
           createdBy: createdBy,
           isDetailsDisplayed: isDetailsDisplayed,
-          isItemVisible: isItemVisible,
+          isVisible: isVisible,
         );
 
   factory PrivateLesson.fromJson(Map<String, dynamic> json) {
@@ -40,7 +40,7 @@ class PrivateLesson extends Item {
       description: json['Description'] ?? '',
       createdBy: User.fromJson(json['Created By']),
       isDetailsDisplayed: json['Details Display'] ?? false,
-      isItemVisible: json['Item Visibility'] ?? true,
+      isVisible: json['Item Visibility'] ?? true,
       tutorName: json['Tutor Name'] ?? '',
       lessons: (json['Lessons'] as List<dynamic>).cast<String>(),
       location: json['Location'] ?? '',
@@ -56,7 +56,7 @@ class PrivateLesson extends Item {
       'Description': description,
       'Created By': createdBy.toJson(),
       'Details Display': isDetailsDisplayed,
-      'Item Visibility': isItemVisible,
+      'Item Visibility': isVisible,
       'Tutor Name': tutorName,
       'Lessons': lessons,
       'Location': location,

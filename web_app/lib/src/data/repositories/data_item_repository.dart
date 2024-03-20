@@ -227,7 +227,8 @@ class DataItemRepository implements ItemRepository {
       );
 
       if (response.statusCode == 200) {
-        print('Deletion of item has been successful.');
+        print('Item deleted successfully.');
+        return response.data;
       } else {
         throw Exception('Error deleting item: ${response.data}');
       }
@@ -237,5 +238,27 @@ class DataItemRepository implements ItemRepository {
     }
   }
 
-  Future<void> updateItem() async {}
+  Future<void> updateItem(Item item) async {
+    var response = await dio.post(
+      "$endpoint/action/updateOne",
+      options: Options(headers: headers),
+      data: jsonEncode(
+        {
+          "dataSource": dataSource,
+          "database": database,
+          "collection": getCollectionType(item),
+          "filter": {
+            "_id": {"\$oid": item.id}
+          },
+          "update": {"\$set": item.toJson()}
+        },
+      ),
+    );
+    if (response.statusCode == 200) {
+      print('Item updated successfully.');
+      return response.data;
+    } else {
+      throw Exception('Error getting phone contact');
+    }
+  }
 }

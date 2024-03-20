@@ -100,8 +100,7 @@ class _ItemDetailsState extends ViewState<ItemDetailsView, ItemDetailsController
                       ),
                     ),
                     SizedBox(height: 10),
-                    //(user != null && (user.auth == 'admin' || item.createdBy.username == user.username))
-                    user == null
+                    (user != null && (user.auth == 'admin' || item.createdBy.id == user.id))
                         ? Container(
                             width: size.width / 3,
                             child: Row(

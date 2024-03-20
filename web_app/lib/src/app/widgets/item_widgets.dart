@@ -121,7 +121,7 @@ class ComputerView extends StatelessWidget {
               style: kAppBarTitleStyle(),
             ),
             Text(
-              computer.graphicCard ?? 'N/A',
+              computer.graphicsCard ?? 'N/A',
               style: kSubtitleStyle(),
             ),
             SizedBox(height: 16),

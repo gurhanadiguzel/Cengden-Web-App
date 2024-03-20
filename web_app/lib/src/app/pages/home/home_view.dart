@@ -62,22 +62,65 @@ class _HomeViewState extends ViewState<HomeView, HomeController> {
               child: controller.isGetItemsFetched
                   ? Column(
                       children: [
-                        Column(
-                          children: [
-                            for (int index = controller.startIndex; index < controller.endIndex; index++)
-                              _ItemContainer(item: controller.items[index])
-                          ],
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
+                          child: Column(
+                            children: [
+                              for (int index = controller.startIndex; index < controller.endIndex; index++)
+                                _ItemContainer(item: controller.items[index])
+                            ],
+                          ),
                         ),
                         SizedBox(height: 20),
-                        controller.items.length > controller.endIndex
-                            ? ElevatedButton(
-                                onPressed: controller.setNextPage,
-                                child: Text('Next Page'),
-                              )
-                            : ElevatedButton(
-                                onPressed: controller.setBackPage,
-                                child: Text('Back Page'),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            controller.currentPage > 0
+                                ? ElevatedButton(
+                                    onPressed: controller.setBackPage,
+                                    child: Text('< Back Page'),
+                                  )
+                                : ElevatedButton(
+                                    onPressed: () {},
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                      elevation: MaterialStateProperty.all<double>(0),
+                                    ),
+                                    child: Text(
+                                      '< Back Page',
+                                      style: TextStyle(
+                                        color: Colors.transparent,
+                                      ),
+                                    ),
+                                  ),
+                            Container(
+                              width: 100,
+                              alignment: Alignment.center,
+                              child: Text(
+                                '${controller.currentPage + 1}',
+                                style: kAppBarTitleStyle(),
                               ),
+                            ),
+                            controller.items.length > controller.endIndex
+                                ? ElevatedButton(
+                                    onPressed: controller.setNextPage,
+                                    child: Text('Next Page >'),
+                                  )
+                                : ElevatedButton(
+                                    onPressed: controller.setNextPage,
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                                      elevation: MaterialStateProperty.all<double>(0),
+                                    ),
+                                    child: Text(
+                                      'Next Page >',
+                                      style: TextStyle(
+                                        color: Colors.transparent,
+                                      ),
+                                    ),
+                                  ),
+                          ],
+                        ),
                       ],
                     )
                   : Center(

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:http/http.dart' as https;
 import 'package:web_app/src/app/constants.dart';
 import 'package:web_app/src/data/exceptions/invalid_login_exception.dart';
 import 'package:web_app/src/domain/entities/user.dart';
@@ -92,6 +93,30 @@ class DataUserRepository implements UserRepository {
       print(e);
       print(st);
       rethrow;
+    }
+  }
+
+  @override
+  Future<void> sendVerificationCode(String verificationCode, String email) async {
+    try {
+      var response = await https.post(
+        Uri.parse('https://ktqvtcnare6eigpyulpecfe7ju0gtvqd.lambda-url.eu-north-1.on.aws/'),
+        body: json.encode(
+          {
+            "verificationCode": verificationCode,
+            "email": "gurhan.adiguzel.01@gmail.com",
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+        print(response.body);
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      print('Error making POST request: $e');
     }
   }
 }

@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:web_app/src/app/pages/add_item/add_item_controller.dart';
 import 'package:web_app/src/app/widgets/cengden_text_field.dart';
+import 'package:web_app/src/domain/entities/computer.dart';
+import 'package:web_app/src/domain/entities/phone.dart';
+import 'package:web_app/src/domain/entities/private_lesson.dart';
+import 'package:web_app/src/domain/entities/vehicle.dart';
 import 'package:web_app/src/domain/repositories/item_controller.dart';
 
 class ComputerFieldsWidget extends StatelessWidget {
   final ItemController controller;
+  final Computer? computer;
+
   const ComputerFieldsWidget({
     super.key,
     required this.controller,
+    this.computer,
   });
 
   @override
@@ -24,6 +30,7 @@ class ComputerFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setType(value);
           },
+          initialValue: computer != null ? computer!.type : '',
         ),
         CengdenTextField(
           size: size,
@@ -33,6 +40,7 @@ class ComputerFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setBrand(value);
           },
+          initialValue: computer != null ? computer!.brand : '',
         ),
         CengdenTextField(
           size: size,
@@ -42,6 +50,7 @@ class ComputerFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setModel(value);
           },
+          initialValue: computer != null ? computer!.model : '',
         ),
         CengdenTextField(
           size: size,
@@ -51,6 +60,7 @@ class ComputerFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setYear(value);
           },
+          initialValue: computer != null ? computer!.year : '',
         ),
         CengdenTextField(
           size: size,
@@ -60,6 +70,7 @@ class ComputerFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setProcessor(value);
           },
+          initialValue: computer != null ? computer!.processor : '',
         ),
         CengdenTextField(
           size: size,
@@ -69,6 +80,7 @@ class ComputerFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setRAM(value);
           },
+          initialValue: computer != null ? computer!.ram : '',
         ),
         CengdenTextField(
           size: size,
@@ -78,15 +90,17 @@ class ComputerFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setStorageComputer(value);
           },
+          initialValue: computer != null ? computer!.storage.toString().replaceAll(RegExp(r'[{}]+'), '') : '',
         ),
         CengdenTextField(
           size: size,
           title: "",
-          hintText: "Graphic Card",
+          hintText: "Graphics Card",
           isObscure: false,
           onChanged: (String value) {
             controller.setGraphicCard(value);
           },
+          initialValue: computer != null ? computer!.graphicsCard : '',
         ),
         CengdenTextField(
           size: size,
@@ -96,6 +110,7 @@ class ComputerFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setOperatingSystem(value);
           },
+          initialValue: computer != null ? computer!.operatingSystem : '',
         ),
       ],
     );
@@ -104,10 +119,12 @@ class ComputerFieldsWidget extends StatelessWidget {
 
 class PhoneFieldsWidget extends StatelessWidget {
   final ItemController controller;
+  final Phone? phone;
 
   const PhoneFieldsWidget({
     super.key,
     required this.controller,
+    this.phone,
   });
 
   @override
@@ -124,6 +141,7 @@ class PhoneFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setBrand(value);
           },
+          initialValue: phone != null ? phone!.brand : '',
         ),
         CengdenTextField(
           size: size,
@@ -133,6 +151,7 @@ class PhoneFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setModel(value);
           },
+          initialValue: phone != null ? phone!.model : '',
         ),
         CengdenTextField(
           size: size,
@@ -142,6 +161,7 @@ class PhoneFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setYear(value);
           },
+          initialValue: phone != null ? phone!.year : '',
         ),
         CengdenTextField(
           size: size,
@@ -151,6 +171,7 @@ class PhoneFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setProcessor(value);
           },
+          initialValue: phone != null ? phone!.processor : '',
         ),
         CengdenTextField(
           size: size,
@@ -160,6 +181,7 @@ class PhoneFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setRAM(value);
           },
+          initialValue: phone != null ? phone!.ram : '',
         ),
         CengdenTextField(
           size: size,
@@ -169,6 +191,7 @@ class PhoneFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setStoragePhone(value);
           },
+          initialValue: phone != null ? phone!.storage : '',
         ),
         CengdenTextField(
           size: size,
@@ -178,6 +201,7 @@ class PhoneFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setCameraSpesifications(value);
           },
+          initialValue: phone != null ? phone!.cameraSpecifications.toString().replaceAll(RegExp(r'[{}]+'), '') : '',
         ),
         CengdenTextField(
           size: size,
@@ -187,6 +211,7 @@ class PhoneFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setBatteryCapacity(value);
           },
+          initialValue: phone != null ? phone!.batteryCapacity : '',
         ),
       ],
     );
@@ -195,10 +220,12 @@ class PhoneFieldsWidget extends StatelessWidget {
 
 class VehicleFieldsWidget extends StatelessWidget {
   final ItemController controller;
+  final Vehicle? vehicle;
 
   const VehicleFieldsWidget({
     super.key,
     required this.controller,
+    this.vehicle,
   });
 
   @override
@@ -244,6 +271,7 @@ class VehicleFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setBrand(value);
           },
+          initialValue: vehicle != null ? vehicle!.brand : '',
         ),
         CengdenTextField(
           size: size,
@@ -253,6 +281,7 @@ class VehicleFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setModel(value);
           },
+          initialValue: vehicle != null ? vehicle!.model : '',
         ),
         CengdenTextField(
           size: size,
@@ -262,6 +291,7 @@ class VehicleFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setYear(value);
           },
+          initialValue: vehicle != null ? vehicle!.year : '',
         ),
         CengdenTextField(
           size: size,
@@ -271,6 +301,7 @@ class VehicleFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setColor(value);
           },
+          initialValue: vehicle != null ? vehicle!.color : '',
         ),
         CengdenTextField(
           size: size,
@@ -280,6 +311,7 @@ class VehicleFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setEngineDisplacement(value);
           },
+          initialValue: vehicle != null ? vehicle!.engineDisplacement : '',
         ),
         CengdenTextField(
           size: size,
@@ -289,6 +321,7 @@ class VehicleFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setFuelType(value);
           },
+          initialValue: vehicle != null ? vehicle!.fuelType : '',
         ),
         CengdenTextField(
           size: size,
@@ -298,6 +331,7 @@ class VehicleFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setTransmissionType(value);
           },
+          initialValue: vehicle != null ? vehicle!.transmissionType : '',
         ),
         CengdenTextField(
           size: size,
@@ -307,6 +341,7 @@ class VehicleFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setMileage(value);
           },
+          initialValue: vehicle != null ? vehicle!.mileage : '',
         ),
         controller.getCarType() == 'Electric Car'
             ? Column(
@@ -319,6 +354,7 @@ class VehicleFieldsWidget extends StatelessWidget {
                     onChanged: (String value) {
                       controller.setBatteryCapacity(value);
                     },
+                    initialValue: vehicle != null ? vehicle!.batteryCapacity : '',
                   ),
                   CengdenTextField(
                     size: size,
@@ -328,6 +364,7 @@ class VehicleFieldsWidget extends StatelessWidget {
                     onChanged: (String value) {
                       controller.setRange(value);
                     },
+                    initialValue: vehicle != null ? vehicle!.range : '',
                   ),
                 ],
               )
@@ -342,6 +379,7 @@ class VehicleFieldsWidget extends StatelessWidget {
                         onChanged: (String value) {
                           controller.setBedCapacity(value);
                         },
+                        initialValue: vehicle != null ? vehicle!.bedCapacity : '',
                       ),
                       CengdenTextField(
                         size: size,
@@ -351,6 +389,7 @@ class VehicleFieldsWidget extends StatelessWidget {
                         onChanged: (String value) {
                           controller.setWaterTankCapacity(value);
                         },
+                        initialValue: vehicle != null ? vehicle!.waterTankCapacity : '',
                       ),
                     ],
                   )
@@ -363,6 +402,7 @@ class VehicleFieldsWidget extends StatelessWidget {
                         onChanged: (String value) {
                           controller.setPayloadCapacity(value);
                         },
+                        initialValue: vehicle != null ? vehicle!.payloadCapacity : '',
                       )
                     : SizedBox(),
       ],
@@ -372,10 +412,12 @@ class VehicleFieldsWidget extends StatelessWidget {
 
 class PrivateLessonFieldsWidget extends StatelessWidget {
   final ItemController controller;
+  final PrivateLesson? privateLesson;
 
   const PrivateLessonFieldsWidget({
     super.key,
     required this.controller,
+    this.privateLesson,
   });
 
   @override
@@ -392,15 +434,18 @@ class PrivateLessonFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setTutorName(value);
           },
+          initialValue: privateLesson != null ? privateLesson!.tutorName : '',
         ),
         CengdenTextField(
           size: size,
           title: "",
-          hintText: "Lessons as \"Lesson, Lesson\"",
+          hintText: "Lessons as \"Lesson1, Lesson2\"",
           isObscure: false,
           onChanged: (String value) {
             controller.setLessons(value);
           },
+          initialValue:
+              privateLesson != null ? privateLesson!.lessons.toString().replaceAll(RegExp(r'[\[\]]+'), '') : '',
         ),
         CengdenTextField(
           size: size,
@@ -410,6 +455,7 @@ class PrivateLessonFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setLocation(value);
           },
+          initialValue: privateLesson != null ? privateLesson!.location : '',
         ),
         CengdenTextField(
           size: size,
@@ -419,6 +465,7 @@ class PrivateLessonFieldsWidget extends StatelessWidget {
           onChanged: (String value) {
             controller.setDuration(value);
           },
+          initialValue: privateLesson != null ? privateLesson!.duration : '',
         ),
       ],
     );
