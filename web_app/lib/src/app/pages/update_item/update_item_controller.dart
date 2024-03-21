@@ -1,5 +1,4 @@
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
-import 'package:web_app/src/domain/entities/vehicle.dart';
 import 'package:web_app/src/domain/repositories/item_controller.dart';
 import 'package:web_app/src/domain/repositories/item_repository.dart';
 import 'package:web_app/src/domain/repositories/user_repository.dart';
@@ -9,11 +8,9 @@ class UpdateItemController extends Controller implements ItemController {
     ItemRepository itemRepository,
     UserRepository userRepository,
     this.item,
-  )   : _itemRepository = itemRepository,
-        _userRepository = userRepository;
+  ) : _itemRepository = itemRepository;
 
-  UserRepository _userRepository;
-  ItemRepository _itemRepository;
+  final ItemRepository _itemRepository;
   dynamic item;
 
   @override
@@ -117,15 +114,12 @@ class UpdateItemController extends Controller implements ItemController {
   @override
   void setYear(String? value) {
     item.year = value;
+    refreshUI();
   }
 
   @override
-  String? getCarType() {
-    if (item is Vehicle) {
-      Vehicle vehicle = item as Vehicle;
-      refreshUI();
-      return vehicle.type;
-    }
+  String getCarType() {
+    return item.type;
   }
 
   @override

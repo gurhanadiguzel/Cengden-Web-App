@@ -3,7 +3,7 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:web_app/src/app/constants.dart';
 import 'package:web_app/src/app/pages/add_item/add_item_controller.dart';
 import 'package:web_app/src/app/widgets/cengden_text_field.dart';
-import 'package:web_app/src/app/widgets/item_fields_widgets.dart';
+import 'package:web_app/src/app/widgets/item_fields_update_widgets.dart';
 import 'package:web_app/src/data/repositories/data_item_repository.dart';
 import 'package:web_app/src/data/repositories/data_user_repository.dart';
 
@@ -145,7 +145,10 @@ class _AddItemViewState extends ViewState<AddItemView, AddItemController> {
               ),
               SizedBox(height: 40.0),
               ElevatedButton(
-                onPressed: controller.addItem,
+                onPressed: () {
+                  controller.addItem();
+                  Navigator.pop(context);
+                },
                 child: Text('Add Item'),
               ),
             ],

@@ -25,8 +25,9 @@ class AppDrawer extends StatelessWidget {
                 vertical: 50,
                 horizontal: 20,
               ),
-              child: Image.asset(
-                'images/cengden.png',
+              child: Image.network(
+                'https://raw.githubusercontent.com/gurhanadiguzel/Flutter-Projects/main/images/cengden.png',
+                fit: BoxFit.cover,
               ),
             ),
             // Menu Items

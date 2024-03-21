@@ -56,7 +56,7 @@ class ComputerView extends StatelessWidget {
               style: kAppBarTitleStyle(),
             ),
             Text(
-              computer.type!,
+              computer.type != null ? computer.type! : '',
               style: kSubtitleStyle(),
             ),
             SizedBox(height: 16),
@@ -67,7 +67,7 @@ class ComputerView extends StatelessWidget {
               style: kAppBarTitleStyle(),
             ),
             Text(
-              computer.brand!,
+              computer.brand != null ? computer.brand! : '',
               style: kSubtitleStyle(),
             ),
             SizedBox(height: 16),
@@ -387,7 +387,7 @@ class VehicleView extends StatelessWidget {
             style: kAppBarTitleStyle(),
           ),
           Text(
-            vehicle.brand!,
+            vehicle.brand != null ? vehicle.brand! : '',
             style: kSubtitleStyle(),
           ),
           SizedBox(height: 16),
@@ -396,7 +396,7 @@ class VehicleView extends StatelessWidget {
             style: kAppBarTitleStyle(),
           ),
           Text(
-            vehicle.model!,
+            vehicle.model != null ? vehicle.model! : '',
             style: kSubtitleStyle(),
           ),
           SizedBox(height: 16),
@@ -405,7 +405,7 @@ class VehicleView extends StatelessWidget {
             style: kAppBarTitleStyle(),
           ),
           Text(
-            vehicle.year!,
+            vehicle.year != null ? vehicle.year! : '',
             style: kSubtitleStyle(),
           ),
           SizedBox(height: 16),
@@ -414,7 +414,7 @@ class VehicleView extends StatelessWidget {
             style: kAppBarTitleStyle(),
           ),
           Text(
-            vehicle.color!,
+            vehicle.color != null ? vehicle.color! : '',
             style: kSubtitleStyle(),
           ),
           SizedBox(height: 16),
@@ -423,7 +423,7 @@ class VehicleView extends StatelessWidget {
             style: kAppBarTitleStyle(),
           ),
           Text(
-            vehicle.engineDisplacement!,
+            vehicle.engineDisplacement != null ? vehicle.engineDisplacement! : '',
             style: kSubtitleStyle(),
           ),
           SizedBox(height: 16),
@@ -432,7 +432,7 @@ class VehicleView extends StatelessWidget {
             style: kAppBarTitleStyle(),
           ),
           Text(
-            vehicle.fuelType!,
+            vehicle.fuelType != null ? vehicle.fuelType! : '',
             style: kSubtitleStyle(),
           ),
           SizedBox(height: 16),
@@ -441,7 +441,7 @@ class VehicleView extends StatelessWidget {
             style: kAppBarTitleStyle(),
           ),
           Text(
-            vehicle.transmissionType!,
+            vehicle.transmissionType != null ? vehicle.transmissionType! : '',
             style: kSubtitleStyle(),
           ),
           SizedBox(height: 16),
@@ -450,9 +450,71 @@ class VehicleView extends StatelessWidget {
             style: kAppBarTitleStyle(),
           ),
           Text(
-            vehicle.mileage!,
+            vehicle.mileage != null ? vehicle.mileage! : '',
             style: kSubtitleStyle(),
           ),
+          SizedBox(height: 16),
+          vehicle.type == 'Electric Car'
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Battery Capacity:',
+                      style: kAppBarTitleStyle(),
+                    ),
+                    Text(
+                      vehicle.batteryCapacity != null ? vehicle.batteryCapacity! : '',
+                      style: kSubtitleStyle(),
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      'Range:',
+                      style: kAppBarTitleStyle(),
+                    ),
+                    Text(
+                      vehicle.range != null ? vehicle.range! : '',
+                      style: kSubtitleStyle(),
+                    ),
+                  ],
+                )
+              : vehicle.type == 'Caravan'
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Bed Capacity:',
+                          style: kAppBarTitleStyle(),
+                        ),
+                        Text(
+                          vehicle.bedCapacity != null ? vehicle.bedCapacity! : '',
+                          style: kSubtitleStyle(),
+                        ),
+                        SizedBox(height: 16),
+                        Text(
+                          'Water Tank Capacity:',
+                          style: kAppBarTitleStyle(),
+                        ),
+                        Text(
+                          vehicle.waterTankCapacity != null ? vehicle.waterTankCapacity! : '',
+                          style: kSubtitleStyle(),
+                        ),
+                      ],
+                    )
+                  : vehicle.type == 'Truck'
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Payload Capacity:',
+                              style: kAppBarTitleStyle(),
+                            ),
+                            Text(
+                              vehicle.payloadCapacity != null ? vehicle.payloadCapacity! : '',
+                              style: kSubtitleStyle(),
+                            ),
+                          ],
+                        )
+                      : SizedBox(),
           SizedBox(height: 16),
           vehicle.isDetailsDisplayed
               ? Column(

@@ -7,6 +7,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: "CENGDEN",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: kBackgroundColor,

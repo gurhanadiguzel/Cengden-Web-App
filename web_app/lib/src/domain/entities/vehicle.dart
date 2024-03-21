@@ -70,11 +70,11 @@ class Vehicle extends Item {
       fuelType: json['Fuel Type'],
       transmissionType: json['Transmission Type'],
       mileage: json['Mileage'],
-      batteryCapacity: json['Battery Capacity'] ?? '',
-      range: json['Range'] ?? '',
-      bedCapacity: json['Bed Capacity'] ?? '',
-      waterTankCapacity: json['Water Tank Capacity'] ?? '',
-      payloadCapacity: json['Payload Capacity'] ?? '',
+      batteryCapacity: json['Battery Capacity'] ?? null,
+      range: json['Range'] ?? null,
+      bedCapacity: json['Bed Capacity'] ?? null,
+      waterTankCapacity: json['Water Tank Capacity'] ?? null,
+      payloadCapacity: json['Payload Capacity'] ?? null,
     );
   }
 
@@ -93,7 +93,7 @@ class Vehicle extends Item {
       'Year': year,
       'Color': color,
       'Engine Displacement': engineDisplacement,
-      'FuelType': fuelType,
+      'Fuel Type': fuelType,
       'Transmission Type': transmissionType,
       'Mileage': mileage,
       'Battery Capacity': batteryCapacity,

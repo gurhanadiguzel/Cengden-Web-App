@@ -54,7 +54,6 @@ class CengdenNavigator {
   }
 
   static Future<void> navigateToUpdateItemView(BuildContext context, Item item) async {
-    //TODO:
     await Navigator.push(
       context,
       MaterialPageRoute(

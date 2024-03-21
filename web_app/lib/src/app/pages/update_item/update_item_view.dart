@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart' hide View;
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:web_app/src/app/constants.dart';
+import 'package:web_app/src/app/navigator.dart';
 import 'package:web_app/src/app/pages/update_item/update_item_controller.dart';
 import 'package:web_app/src/app/widgets/cengden_text_field.dart';
-import 'package:web_app/src/app/widgets/item_fields_widgets.dart';
+import 'package:web_app/src/app/widgets/item_fields_update_widgets.dart';
 import 'package:web_app/src/data/repositories/data_item_repository.dart';
 import 'package:web_app/src/data/repositories/data_user_repository.dart';
 import 'package:web_app/src/domain/entities/computer.dart';
@@ -15,7 +16,7 @@ import 'package:web_app/src/domain/entities/vehicle.dart';
 class UpdateItemView extends View {
   final Item item;
 
-  UpdateItemView(this.item);
+  const UpdateItemView(this.item);
 
   @override
   State<StatefulWidget> createState() {
@@ -211,7 +212,7 @@ class _UpdateItemViewState extends ViewState<UpdateItemView, UpdateItemControlle
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               controller.updateItem();
-              Navigator.pop(context);
+              CengdenNavigator.navigateToItemDetailsView(context, controller.item);
             },
             child: Container(
               width: 100,

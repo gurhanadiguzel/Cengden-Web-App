@@ -242,10 +242,14 @@ class VehicleFieldsWidget extends StatelessWidget {
             onChanged: (value) {
               controller.setType(value);
             },
-            items: [
+            items: const [
               DropdownMenuItem(
                 value: 'Sedan',
                 child: Text('Sedan'),
+              ),
+              DropdownMenuItem(
+                value: 'SUV',
+                child: Text('SUV'),
               ),
               DropdownMenuItem(
                 value: 'Electric Car',

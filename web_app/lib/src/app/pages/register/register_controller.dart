@@ -123,7 +123,7 @@ class RegisterController extends Controller {
     }
   }
 
-  void signUp(BuildContext context) async {
+  void verifyCode(BuildContext context) async {
     isLoading = true;
     refreshUI();
 
@@ -155,7 +155,7 @@ class RegisterController extends Controller {
     refreshUI();
   }
 
-  void verifyCode(BuildContext context) async {
+  void signUp(BuildContext context) async {
     user = User(
       id: '',
       username: username,
@@ -182,7 +182,9 @@ class RegisterController extends Controller {
   }
 
   bool isValidEmail(String email) {
-    return email.endsWith('@ceng.metu.edu.tr');
+    // TODO
+    //email.endsWith('@ceng.metu.edu.tr');
+    return true;
   }
 
   void generateSixDigitCode() {

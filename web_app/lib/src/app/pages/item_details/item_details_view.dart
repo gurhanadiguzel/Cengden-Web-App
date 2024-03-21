@@ -5,7 +5,7 @@ import 'package:web_app/src/app/navigator.dart';
 import 'package:web_app/src/app/pages/item_details/item_details_controller.dart';
 import 'package:web_app/src/app/widgets/app_bar.dart';
 import 'package:web_app/src/app/widgets/app_drawer.dart';
-import 'package:web_app/src/app/widgets/item_widgets.dart';
+import 'package:web_app/src/app/widgets/item_fields_view_widgets.dart';
 import 'package:web_app/src/data/repositories/data_item_repository.dart';
 import 'package:web_app/src/data/repositories/data_user_repository.dart';
 import 'package:web_app/src/domain/entities/computer.dart';

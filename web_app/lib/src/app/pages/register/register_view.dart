@@ -226,7 +226,7 @@ class _RegisterViewState extends ViewState<RegisterView, RegisterController> {
                                 PrimaryButton(
                                   text: "Sign Up",
                                   onPressed: () {
-                                    controller.signUp(context);
+                                    controller.verifyCode(context);
                                     if (controller.isRegisterValid) _showVerificationCodePopup(context, controller);
                                   },
                                   isEnabled: controller.isFieldsAreInitializedForRegister(),
@@ -294,7 +294,7 @@ Future<void> _showVerificationCodePopup(BuildContext context, RegisterController
           ),
           TextButton(
             onPressed: () {
-              controller.verifyCode(context);
+              controller.signUp(context);
             },
             child: Text('Verify'),
           ),

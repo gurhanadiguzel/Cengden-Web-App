@@ -67,7 +67,6 @@ class DataUserRepository implements UserRepository {
 
   @override
   Future<void> signUp(User user) async {
-    // TODO: only register ceng mail
     try {
       var response = await dio.post(
         "$endpoint/action/insertOne",
@@ -104,7 +103,7 @@ class DataUserRepository implements UserRepository {
         body: json.encode(
           {
             "verificationCode": verificationCode,
-            "email": "gurhan.adiguzel.01@gmail.com",
+            "email": email,
           },
         ),
       );
