@@ -47,7 +47,7 @@ class _HomeViewState extends ViewState<HomeView, HomeController> {
               builder: (context) => IconButton(
                 icon: Icon(
                   Icons.menu_rounded,
-                  size: 40,
+                  size: 32,
                 ),
                 onPressed: () => _scaffoldKey.currentState!.openDrawer(),
               ),
@@ -65,10 +65,9 @@ class _HomeViewState extends ViewState<HomeView, HomeController> {
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
                           child: Column(
-                            children: [
-                              for (int index = controller.startIndex; index < controller.endIndex; index++)
-                                _ItemContainer(item: controller.items[index])
-                            ],
+                            children: controller.items!.map((item) {
+                              return _ItemContainer(item: item, controller: controller);
+                            }).toList(),
                           ),
                         ),
                         SizedBox(height: 20),
@@ -80,19 +79,7 @@ class _HomeViewState extends ViewState<HomeView, HomeController> {
                                     onPressed: controller.setBackPage,
                                     child: Text('< Back Page'),
                                   )
-                                : ElevatedButton(
-                                    onPressed: () {},
-                                    style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                      elevation: MaterialStateProperty.all<double>(0),
-                                    ),
-                                    child: Text(
-                                      '< Back Page',
-                                      style: TextStyle(
-                                        color: Colors.transparent,
-                                      ),
-                                    ),
-                                  ),
+                                : Container(),
                             Container(
                               width: 100,
                               alignment: Alignment.center,
@@ -101,24 +88,12 @@ class _HomeViewState extends ViewState<HomeView, HomeController> {
                                 style: kAppBarTitleStyle(),
                               ),
                             ),
-                            controller.items.length > controller.endIndex
+                            controller.startIndex + controller.itemsPerPage == controller.endIndex
                                 ? ElevatedButton(
                                     onPressed: controller.setNextPage,
                                     child: Text('Next Page >'),
                                   )
-                                : ElevatedButton(
-                                    onPressed: controller.setNextPage,
-                                    style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                      elevation: MaterialStateProperty.all<double>(0),
-                                    ),
-                                    child: Text(
-                                      'Next Page >',
-                                      style: TextStyle(
-                                        color: Colors.transparent,
-                                      ),
-                                    ),
-                                  ),
+                                : Container(),
                           ],
                         ),
                       ],
@@ -138,9 +113,11 @@ class _ItemContainer extends StatelessWidget {
   const _ItemContainer({
     Key? key,
     required this.item,
+    required this.controller,
   }) : super(key: key);
 
   final Item item;
+  final HomeController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -215,6 +192,17 @@ class _ItemContainer extends StatelessWidget {
                 ],
               ),
             ),
+            if (controller.typeFilter == 'favoriteItems')
+              IconButton(
+                icon: Icon(
+                  Icons.bookmark_remove_outlined,
+                  color: kPrimaryColor,
+                ),
+                onPressed: () {
+                  controller.deleteItemFromFavorites(item);
+                  CengdenNavigator.navigateToHomeView(context, 'favoriteItems');
+                },
+              ),
           ],
         ),
       ),

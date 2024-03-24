@@ -3,19 +3,22 @@ import 'package:web_app/src/app/constants.dart';
 import 'package:web_app/src/domain/entities/computer.dart';
 import 'package:web_app/src/domain/entities/phone.dart';
 import 'package:web_app/src/domain/entities/private_lesson.dart';
+import 'package:web_app/src/domain/entities/user.dart';
 import 'package:web_app/src/domain/entities/vehicle.dart';
 
 class ComputerView extends StatelessWidget {
+  final Computer computer;
+  final User? user;
+
   const ComputerView({
     super.key,
     required this.computer,
+    required this.user,
   });
-
-  final Computer computer;
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Flexible(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -134,7 +137,7 @@ class ComputerView extends StatelessWidget {
               style: kSubtitleStyle(),
             ),
             SizedBox(height: 16),
-            computer.isDetailsDisplayed
+            computer.isDetailsDisplayed || user != null
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -162,15 +165,17 @@ class ComputerView extends StatelessWidget {
 
 class PhoneView extends StatelessWidget {
   final Phone phone;
+  final User? user;
 
   const PhoneView({
     super.key,
     required this.phone,
+    required this.user,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Flexible(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -303,7 +308,7 @@ class PhoneView extends StatelessWidget {
             SizedBox(height: 16),
           ],
           SizedBox(height: 16),
-          phone.isDetailsDisplayed
+          phone.isDetailsDisplayed || user != null
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -330,15 +335,17 @@ class PhoneView extends StatelessWidget {
 
 class VehicleView extends StatelessWidget {
   final Vehicle vehicle;
+  final User? user;
 
   const VehicleView({
     super.key,
     required this.vehicle,
+    required this.user,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Flexible(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -516,7 +523,7 @@ class VehicleView extends StatelessWidget {
                         )
                       : SizedBox(),
           SizedBox(height: 16),
-          vehicle.isDetailsDisplayed
+          vehicle.isDetailsDisplayed || user != null
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -543,15 +550,17 @@ class VehicleView extends StatelessWidget {
 
 class PrivateLessonView extends StatelessWidget {
   final PrivateLesson privateLesson;
+  final User? user;
 
   const PrivateLessonView({
     super.key,
     required this.privateLesson,
+    required this.user,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Flexible(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -624,7 +633,7 @@ class PrivateLessonView extends StatelessWidget {
           ] else
             Text('N/A'),
           SizedBox(height: 16),
-          privateLesson.isDetailsDisplayed
+          privateLesson.isDetailsDisplayed || user != null
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

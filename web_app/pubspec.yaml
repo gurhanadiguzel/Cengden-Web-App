@@ -24,6 +24,7 @@ dependencies:
   window_manager: ^0.3.8
   dio: ^5.4.1
   http: ^0.13.3
+  crypto: ^3.0.3
 
 
 dev_dependencies:

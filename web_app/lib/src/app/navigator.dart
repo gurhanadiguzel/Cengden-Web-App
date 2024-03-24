@@ -5,7 +5,10 @@ import 'package:web_app/src/app/pages/item_details/item_details_view.dart';
 import 'package:web_app/src/app/pages/profile/profile_view.dart';
 import 'package:web_app/src/app/pages/register/register_view.dart';
 import 'package:web_app/src/app/pages/update_item/update_item_view.dart';
+import 'package:web_app/src/app/pages/update_user/update_user_view.dart';
+import 'package:web_app/src/app/pages/users/users_view.dart';
 import 'package:web_app/src/domain/entities/item.dart';
+import 'package:web_app/src/domain/entities/user.dart';
 
 class CengdenNavigator {
   static Future<void> navigateToHomeView(BuildContext context, String filter) async {
@@ -58,6 +61,24 @@ class CengdenNavigator {
       context,
       MaterialPageRoute(
         builder: (context) => UpdateItemView(item),
+      ),
+    );
+  }
+
+  static Future<void> navigateToUsersView(BuildContext context) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => UsersView(),
+      ),
+    );
+  }
+
+  static Future<void> navigateToUpdateUserView(BuildContext context, User user) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => UpdateUserView(user),
       ),
     );
   }

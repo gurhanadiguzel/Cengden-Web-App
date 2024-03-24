@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:math';
 
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:web_app/src/app/navigator.dart';
@@ -160,7 +162,7 @@ class RegisterController extends Controller {
       id: '',
       username: username,
       email: email,
-      password: password,
+      password: sha256.convert(utf8.encode(password)).toString(),
       phoneNumber: phoneNumber,
       auth: 'user',
     );
@@ -168,6 +170,7 @@ class RegisterController extends Controller {
       if (userVerificationCode == verifiedCode) {
         print("Code is correct");
         await userRepository.signUp(user!);
+        await userRepository.logIn(email, password);
         Navigator.of(context).pop();
         CengdenNavigator.navigateToHomeView(context, 'no');
         refreshUI();

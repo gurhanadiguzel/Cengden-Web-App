@@ -19,7 +19,7 @@ class ProfileController extends Controller {
   @override
   void onInitState() async {
     super.onInitState();
-    user = userRepository.getUser();
+    user = userRepository.getCurrentUser();
   }
 
   void logOut(BuildContext context) async {
@@ -27,7 +27,7 @@ class ProfileController extends Controller {
     try {
       userRepository.logOut();
       isLoading = false;
-      CengdenNavigator.navigateToHomeView(context, 'no');
+      CengdenNavigator.navigateToRegisterView(context);
     } catch (e, st) {
       print(e);
       print(st);

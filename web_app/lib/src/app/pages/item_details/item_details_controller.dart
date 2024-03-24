@@ -14,10 +14,13 @@ class ItemDetailsController extends Controller {
   UserRepository userRepository;
   @override
   void initListeners() {}
-  void updateItem() {}
-  // TODO When item deleted, items should updated.
   void deleteItem(Item item) async {
     await itemRepository.deleteItem(item);
+    refreshUI();
+  }
+
+  void addItemToFavorites(Item item) async {
+    await itemRepository.addItemToFavorites(userRepository.getCurrentUser()!, item);
     refreshUI();
   }
 }

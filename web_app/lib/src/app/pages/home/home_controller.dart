@@ -1,26 +1,24 @@
+import 'dart:async';
+
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:web_app/src/domain/entities/item.dart';
 import 'package:web_app/src/domain/repositories/item_repository.dart';
 import 'package:web_app/src/domain/repositories/user_repository.dart';
 
 class HomeController extends Controller {
-  final String typeFilter;
-
   HomeController(
     ItemRepository itemRepository,
     UserRepository userRepository,
     this.typeFilter,
-  )   : itemRepository = itemRepository,
+  )   : _itemRepository = itemRepository,
         userRepository = userRepository;
 
-  ItemRepository itemRepository;
-  UserRepository userRepository;
+  final ItemRepository _itemRepository;
+  final UserRepository userRepository;
+  final String typeFilter;
 
-  List<Item> items = [];
-  List<Item> computers = [];
-  List<Item> phones = [];
-  List<Item> vehicles = [];
-  List<Item> privateLessons = [];
+  List<Item>? items = [];
+
   int itemsPerPage = 10;
   int currentPage = 0;
   int startIndex = 0;
@@ -31,17 +29,20 @@ class HomeController extends Controller {
   @override
   void onInitState() async {
     super.onInitState();
-    await itemRepository.getAccessToken();
+    await _itemRepository.getAccessToken();
     getItems();
   }
 
   @override
   void initListeners() {}
 
-  void setNextPage() {
+  void setNextPage() async {
     currentPage++;
     startIndex = currentPage * itemsPerPage;
-    endIndex = items.length > (startIndex + itemsPerPage) ? startIndex + itemsPerPage : items.length;
+    getItems();
+    endIndex = (startIndex + items!.length) == (startIndex + itemsPerPage)
+        ? startIndex + itemsPerPage
+        : (startIndex + items!.length);
     refreshUI();
   }
 
@@ -49,37 +50,51 @@ class HomeController extends Controller {
     currentPage--;
     startIndex = currentPage * itemsPerPage;
     endIndex = startIndex + itemsPerPage;
+    getItems();
     refreshUI();
   }
 
   void getItems() async {
-    computers = await itemRepository.getComputers();
-    phones = await itemRepository.getPhones();
-    vehicles = await itemRepository.getVehicles();
-    privateLessons = await itemRepository.getPrivateLessons();
+    isGetItemsFetched = false;
 
-    filterComputers();
+    items = await filterItems();
 
-    endIndex = 10;
-    if (items.length < endIndex) {
-      endIndex = items.length;
+    if ((startIndex + items!.length) < (startIndex + itemsPerPage)) {
+      endIndex = startIndex + items!.length;
     }
     isGetItemsFetched = true;
     refreshUI();
   }
 
-  void filterComputers() async {
+  Future<List<Item>?> filterItems() async {
     if (typeFilter == 'computers') {
-      items = computers;
+      List<Item>? computers = await _itemRepository.getItems("Computer", itemsPerPage, startIndex);
+      return computers;
     } else if (typeFilter == 'phones') {
-      items = phones;
+      List<Item>? phones = await _itemRepository.getItems("Phone", itemsPerPage, startIndex);
+      return phones;
     } else if (typeFilter == 'vehicles') {
-      items = vehicles;
+      List<Item>? vehicles = await _itemRepository.getItems("Vehicle", itemsPerPage, startIndex);
+      return vehicles;
     } else if (typeFilter == 'privateLessons') {
-      items = privateLessons;
+      List<Item>? privateLessons = await _itemRepository.getItems("PrivateLesson", itemsPerPage, startIndex);
+      return privateLessons;
+    } else if (typeFilter == 'favoriteItems') {
+      List<Item>? favoriteItems =
+          await _itemRepository.getFavoriteItems(userRepository.getCurrentUser()!, itemsPerPage, startIndex);
+      return favoriteItems;
+    } else if (typeFilter == 'myItems') {
+      List<Item>? myItems =
+          await _itemRepository.getMyItems(userRepository.getCurrentUser()!, itemsPerPage, startIndex);
+      return myItems;
     } else {
-      items = computers + phones + vehicles + privateLessons;
-      items.shuffle();
+      List<Item>? allItems = await _itemRepository.getItems(null, itemsPerPage, startIndex);
+      return allItems;
     }
+  }
+
+  void deleteItemFromFavorites(Item item) async {
+    await _itemRepository.deleteItemFromFavorites(userRepository.getCurrentUser()!, item);
+    refreshUI();
   }
 }

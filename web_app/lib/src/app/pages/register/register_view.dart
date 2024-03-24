@@ -38,7 +38,7 @@ class _RegisterViewState extends ViewState<RegisterView, RegisterController> {
               builder: (context) => IconButton(
                 icon: Icon(
                   Icons.menu_rounded,
-                  size: size.width * 0.025,
+                  size: 32,
                 ),
                 onPressed: () => _scaffoldKey.currentState!.openDrawer(),
               ),
@@ -97,6 +97,7 @@ class _RegisterViewState extends ViewState<RegisterView, RegisterController> {
                                   hintText: "Your password",
                                   isObscure: true,
                                   onChanged: controller.setPasswordLogin,
+                                  color: (controller.isLoginValid == false) ? Colors.red : null,
                                 ),
                                 SizedBox(height: 15),
                                 Container(

@@ -11,6 +11,8 @@ class UpdateItemController extends Controller implements ItemController {
   ) : _itemRepository = itemRepository;
 
   final ItemRepository _itemRepository;
+  String? previousPrice;
+  String? newPrice;
   dynamic item;
 
   @override
@@ -18,6 +20,15 @@ class UpdateItemController extends Controller implements ItemController {
 
   void updateItem() async {
     await _itemRepository.updateItem(item);
+    if (previousPrice != null && newPrice != null) {
+      double prevPrice = double.parse(previousPrice!.replaceAll(RegExp(r'[^0-9]'), ''));
+      double updatedPrice = double.parse(newPrice!.replaceAll(RegExp(r'[^0-9]'), ''));
+      print(prevPrice);
+      print(updatedPrice);
+      if (prevPrice > updatedPrice) {
+        await _itemRepository.sendUpdatedPriceMail(item, previousPrice, newPrice);
+      }
+    }
   }
 
   void toggleDetailsDisplay(bool value) {
@@ -36,6 +47,8 @@ class UpdateItemController extends Controller implements ItemController {
   }
 
   void setPrice(String? value) {
+    if (previousPrice == null) previousPrice = item.price;
+    newPrice = value;
     item.price = value ?? item.price;
     refreshUI();
   }

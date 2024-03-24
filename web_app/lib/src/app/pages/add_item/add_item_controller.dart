@@ -19,8 +19,8 @@ class AddItemController extends Controller implements ItemController {
   ItemRepository _itemRepository;
 
   Item? item;
-  String? selectedItemType;
 
+  String? category;
   String? title;
   String? price;
   String? imageUrl;
@@ -58,8 +58,8 @@ class AddItemController extends Controller implements ItemController {
   @override
   void initListeners() {}
   // Item Setters
-  void setItemType(String? value) {
-    selectedItemType = value;
+  void setCategory(String? value) {
+    category = value;
     refreshUI();
   }
 
@@ -84,36 +84,43 @@ class AddItemController extends Controller implements ItemController {
   }
 
   // Computer Setters
+  @override
   void setType(String? value) {
     type = value;
     refreshUI();
   }
 
+  @override
   void setBrand(String? value) {
     brand = value;
     refreshUI();
   }
 
+  @override
   void setModel(String? value) {
     model = value;
     refreshUI();
   }
 
+  @override
   void setYear(String? value) {
     year = value;
     refreshUI();
   }
 
+  @override
   void setProcessor(String? value) {
     processor = value;
     refreshUI();
   }
 
+  @override
   void setRAM(String? value) {
     ram = value;
     refreshUI();
   }
 
+  @override
   void setStorageComputer(String? value) {
     if (value != null) {
       computerStorage = Map.fromEntries(
@@ -132,17 +139,20 @@ class AddItemController extends Controller implements ItemController {
     refreshUI();
   }
 
+  @override
   void setGraphicCard(String? value) {
     graphicCard = value;
     refreshUI();
   }
 
+  @override
   void setOperatingSystem(String? value) {
     operatingSystem = value;
     refreshUI();
   }
 
   // Phone Setters
+  @override
   void setCameraSpesifications(String? value) {
     if (value != null) {
       cameraSpecifications = Map.fromEntries(
@@ -161,11 +171,13 @@ class AddItemController extends Controller implements ItemController {
     refreshUI();
   }
 
+  @override
   void setStoragePhone(String? value) {
     batteryCapacity = value;
     refreshUI();
   }
 
+  @override
   void setBatteryCapacity(String? value) {
     batteryCapacity = value;
     refreshUI();
@@ -177,67 +189,80 @@ class AddItemController extends Controller implements ItemController {
     return type;
   }
 
+  @override
   void setColor(String? value) {
     color = value;
     refreshUI();
   }
 
+  @override
   void setEngineDisplacement(String? value) {
     engineDisplacement = value;
     refreshUI();
   }
 
+  @override
   void setFuelType(String? value) {
     fuelType = value;
     refreshUI();
   }
 
+  @override
   void setTransmissionType(String? value) {
     transmissionType = value;
     refreshUI();
   }
 
+  @override
   void setMileage(String? value) {
     mileage = value;
     refreshUI();
   }
 
+  @override
   void setRange(String? value) {
     range = value;
     refreshUI();
   }
 
+  @override
   void setBedCapacity(String? value) {
     bedCapacity = value;
     refreshUI();
   }
 
+  @override
   void setWaterTankCapacity(String? value) {
     waterTankCapacity = value;
     refreshUI();
   }
 
+  @override
   void setPayloadCapacity(String? value) {
     payloadCapacity = value;
     refreshUI();
   }
 
   // Private Lessons Setters
+  @override
   void setTutorName(String? value) {
     tutorName = value;
     refreshUI();
   }
 
+  @override
   void setLessons(String? value) {
     lessons = value!.split(',');
     refreshUI();
   }
 
+  @override
   void setLocation(String? value) {
     location = value;
     refreshUI();
   }
 
+  @override
   void setDuration(String? value) {
     duration = value;
     refreshUI();
@@ -249,16 +274,18 @@ class AddItemController extends Controller implements ItemController {
   }
 
   void addItem() {
-    if (selectedItemType != null) {
-      switch (selectedItemType) {
-        case 'computer':
+    if (category != null) {
+      switch (category) {
+        case 'Computer':
           item = Computer(
             id: '',
+            category: category!,
             title: title!,
             price: price!,
             imageUrl: imageUrl!,
             description: description!,
-            createdBy: _userRepository.getUser()!,
+            createdBy: _userRepository.getCurrentUser()!,
+            createdDate: DateTime.now().toString(),
             isDetailsDisplayed: isDetailsDisplayed,
             type: type,
             brand: brand,
@@ -271,14 +298,16 @@ class AddItemController extends Controller implements ItemController {
             operatingSystem: operatingSystem,
           );
           break;
-        case 'phone':
+        case 'Phone':
           item = Phone(
             id: '',
+            category: category!,
             title: title!,
             price: price!,
             imageUrl: imageUrl!,
             description: description!,
-            createdBy: _userRepository.getUser()!,
+            createdBy: _userRepository.getCurrentUser()!,
+            createdDate: DateTime.now().toString(),
             isDetailsDisplayed: isDetailsDisplayed,
             brand: brand,
             model: model,
@@ -291,14 +320,16 @@ class AddItemController extends Controller implements ItemController {
             batteryCapacity: batteryCapacity,
           );
           break;
-        case 'vehicle':
+        case 'Vehicle':
           item = Vehicle(
             id: '',
+            category: category!,
             title: title!,
             price: price!,
             imageUrl: imageUrl!,
             description: description!,
-            createdBy: _userRepository.getUser()!,
+            createdBy: _userRepository.getCurrentUser()!,
+            createdDate: DateTime.now().toString(),
             isDetailsDisplayed: isDetailsDisplayed,
             type: type,
             brand: brand,
@@ -316,14 +347,16 @@ class AddItemController extends Controller implements ItemController {
             payloadCapacity: payloadCapacity,
           );
           break;
-        case 'privateLesson':
+        case 'PrivateLesson':
           item = PrivateLesson(
             id: '',
+            category: category!,
             title: title!,
             price: price!,
             imageUrl: imageUrl!,
             description: description!,
-            createdBy: _userRepository.getUser()!,
+            createdBy: _userRepository.getCurrentUser()!,
+            createdDate: DateTime.now().toString(),
             isDetailsDisplayed: isDetailsDisplayed,
             tutorName: tutorName,
             lessons: lessons,

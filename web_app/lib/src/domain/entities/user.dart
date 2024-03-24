@@ -1,10 +1,10 @@
 class User {
   final String id;
-  final String username;
+  String username;
   final String email;
-  final String password;
-  final String phoneNumber;
-  final String auth;
+  String password;
+  String phoneNumber;
+  String auth;
 
   User({
     required this.id,
@@ -27,23 +27,13 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    if (id != '') {
-      return {
-        '_id': {"\$oid": id},
-        'username': username,
-        'email': email,
-        'password': password,
-        'phoneNumber': phoneNumber,
-        'auth': auth,
-      };
-    } else {
-      return {
-        'username': username,
-        'email': email,
-        'password': password,
-        'phoneNumber': phoneNumber,
-        'auth': auth,
-      };
-    }
+    return {
+      if (id != '') '_id': {"\$oid": id},
+      'username': username,
+      'email': email,
+      'password': password,
+      'phoneNumber': phoneNumber,
+      'auth': auth,
+    };
   }
 }

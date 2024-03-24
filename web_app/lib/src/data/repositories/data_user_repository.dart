@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as https;
 import 'package:web_app/src/app/constants.dart';
@@ -21,13 +22,47 @@ class DataUserRepository implements UserRepository {
   }
 
   @override
-  User? getUser() {
+  User? getCurrentUser() {
     return user;
+  }
+
+  @override
+  Future<List<User>> getAllUsers() async {
+    List<User> users = [];
+
+    try {
+      var response = await dio.post(
+        "$endpoint/action/find",
+        options: Options(headers: headers),
+        data: jsonEncode({
+          "dataSource": dataSource,
+          "database": database,
+          "collection": 'users',
+          "filter": {},
+        }),
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> documents = response.data['documents'];
+        documents.forEach(
+          (doc) {
+            users.add(User.fromJson(doc));
+          },
+        );
+      } else {
+        throw Exception('Error logging in: ${response.statusCode}');
+      }
+    } catch (e, st) {
+      print(e);
+      print(st);
+      rethrow;
+    }
+    return users;
   }
 
   @override
   Future<void> logIn(String email, String password) async {
     try {
+      String hashedPassword = sha256.convert(utf8.encode(password)).toString();
       var response = await dio.post(
         "$endpoint/action/find",
         options: Options(headers: headers),
@@ -37,7 +72,7 @@ class DataUserRepository implements UserRepository {
           "collection": 'users',
           "filter": {
             "email": email,
-            "password": password,
+            "password": hashedPassword,
           },
         }),
       );
@@ -82,7 +117,6 @@ class DataUserRepository implements UserRepository {
       );
       if (response.statusCode == 201) {
         print('User sign-up has been successful.');
-        logIn(user.email, user.password);
 
         return response.data;
       } else {
@@ -116,6 +150,128 @@ class DataUserRepository implements UserRepository {
       }
     } catch (e) {
       print('Error making POST request: $e');
+    }
+  }
+
+  Future<void> deleteUser(String userId) async {
+    try {
+      var response = await dio.post(
+        "$endpoint/action/deleteOne",
+        options: Options(headers: headers),
+        data: jsonEncode(
+          {
+            "dataSource": dataSource,
+            "database": database,
+            "collection": 'users',
+            "filter": {
+              "_id": {"\$oid": userId}
+            },
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        print('User deleted successfully.');
+        return response.data;
+      } else {
+        throw Exception('Error deleting user: ${response.data}');
+      }
+    } catch (e) {
+      print('Error deleting user: $e');
+      rethrow;
+    }
+  }
+
+  Future<void> updateUser(User user) async {
+    try {
+      // Updates Users
+      var response = await dio.post(
+        "$endpoint/action/updateOne",
+        options: Options(headers: headers),
+        data: jsonEncode(
+          {
+            "dataSource": dataSource,
+            "database": database,
+            "collection": 'users',
+            "filter": {
+              "_id": {"\$oid": user.id}
+            },
+            "update": {"\$set": user.toJson()}
+          },
+        ),
+      );
+
+      // Updates Created By in the items
+      response = await dio.post(
+        "$endpoint/action/updateMany",
+        options: Options(headers: headers),
+        data: jsonEncode(
+          {
+            "dataSource": dataSource,
+            "database": database,
+            "collection": 'items',
+            "filter": {
+              "Created By._id": {"\$oid": user.id},
+            },
+            "update": {
+              "\$set": {
+                "Created By": user.toJson(),
+              }
+            }
+          },
+        ),
+      );
+
+      // Updates Users in the favorites
+      response = await dio.post(
+        "$endpoint/action/updateMany",
+        options: Options(headers: headers),
+        data: jsonEncode(
+          {
+            "dataSource": dataSource,
+            "database": database,
+            "collection": 'favoriteItems',
+            "filter": {
+              "User._id": {"\$oid": user.id},
+            },
+            "update": {
+              "\$set": {
+                "User": user.toJson(),
+              }
+            }
+          },
+        ),
+      );
+
+      response = await dio.post(
+        "$endpoint/action/updateMany",
+        options: Options(headers: headers),
+        data: jsonEncode(
+          {
+            "dataSource": dataSource,
+            "database": database,
+            "collection": 'favoriteItems',
+            "filter": {
+              "Item.Created By._id": {"\$oid": user.id},
+            },
+            "update": {
+              "\$set": {
+                "Item.Created By": user.toJson(),
+              }
+            }
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        print('User updated successfully.');
+        return response.data;
+      } else {
+        throw Exception('Error updating user: ${response.data}');
+      }
+    } catch (e) {
+      print('Error updating user: $e');
+      rethrow;
     }
   }
 }

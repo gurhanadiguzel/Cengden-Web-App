@@ -44,6 +44,7 @@ class _UpdateItemViewState extends ViewState<UpdateItemView, UpdateItemControlle
         return Scaffold(
           appBar: AppBar(
             title: Text('Update Item'),
+            centerTitle: true,
           ),
           body: SafeArea(
             child: SingleChildScrollView(

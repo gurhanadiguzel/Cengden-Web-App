@@ -11,7 +11,7 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    User? user = userRepository.getUser();
+    User? user = userRepository.getCurrentUser();
     return Drawer(
       backgroundColor: Colors.white,
       child: Container(
@@ -115,19 +115,47 @@ class AppDrawer extends StatelessWidget {
                       ListTile(
                         title: Row(
                           children: [
-                            Icon(Icons.bookmark),
+                            Icon(Icons.bookmark_outlined),
                             SizedBox(width: 5),
                             Text('Favorite Items'),
                           ],
                         ),
                         onTap: () {
                           Navigator.pop(context);
-                          CengdenNavigator.navigateToHomeView(context, 'no');
+                          CengdenNavigator.navigateToHomeView(context, 'favoriteItems');
+                        },
+                      ),
+                      ListTile(
+                        title: Row(
+                          children: [
+                            Icon(Icons.local_offer_outlined),
+                            SizedBox(width: 5),
+                            Text('My Items'),
+                          ],
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                          CengdenNavigator.navigateToHomeView(context, 'myItems');
                         },
                       ),
                     ],
                   )
                 : Container(),
+            // TODO : Spacer(),
+            if (user != null && user.auth == 'admin')
+              ListTile(
+                title: Row(
+                  children: [
+                    Icon(Icons.groups_outlined),
+                    SizedBox(width: 5),
+                    Text('All Users'),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  CengdenNavigator.navigateToUsersView(context);
+                },
+              ),
             ListTile(
               title: Row(
                 children: [

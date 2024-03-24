@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' hide View;
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:web_app/src/app/constants.dart';
+import 'package:web_app/src/app/navigator.dart';
 import 'package:web_app/src/app/pages/profile/profile_controller.dart';
 import 'package:web_app/src/app/widgets/app_bar.dart';
 import 'package:web_app/src/app/widgets/app_drawer.dart';
@@ -37,7 +38,7 @@ class _ProfileViewState extends ViewState<ProfileView, ProfileController> {
               builder: (context) => IconButton(
                 icon: Icon(
                   Icons.menu_rounded,
-                  size: size.width * 0.025,
+                  size: 32,
                 ),
                 onPressed: () => _scaffoldKey.currentState!.openDrawer(),
               ),
@@ -46,47 +47,87 @@ class _ProfileViewState extends ViewState<ProfileView, ProfileController> {
             title: const CengdenAppBar(),
             iconTheme: IconThemeData(color: kPrimaryColor),
           ),
-          body: Container(
-            width: size.width,
-            height: size.height,
-            padding: EdgeInsets.all(100),
-            alignment: Alignment.center,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(height: 20),
-                CircleAvatar(
-                  radius: 60,
-                  backgroundColor: Colors.grey[300],
-                  child: Icon(
-                    Icons.person,
-                    size: 80,
-                    color: Colors.grey[600],
+          body: SingleChildScrollView(
+            child: Container(
+              width: size.width,
+              padding: EdgeInsets.symmetric(horizontal: size.width / 4, vertical: 50),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 20),
+                  CircleAvatar(
+                    radius: 80,
+                    backgroundColor: Colors.grey[300],
+                    child: Icon(
+                      Icons.person,
+                      size: 100,
+                      color: Colors.grey[600],
+                    ),
                   ),
-                ),
-                SizedBox(height: 20),
-                ListTile(
-                  leading: Icon(Icons.person),
-                  title: Text('Username: ${controller.user?.username ?? ''}'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.email),
-                  title: Text('Email: ${controller.user?.email ?? ''}'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.phone),
-                  title: Text('Phone: ${controller.user?.phoneNumber ?? ''}'),
-                ),
-                SizedBox(height: 20),
-                PrimaryButton(
-                  text: "Log Out",
-                  onPressed: () {
-                    controller.logOut(context);
-                  },
-                  isEnabled: true,
-                  isLoading: controller.isLoading,
-                ),
-              ],
+                  SizedBox(height: 50),
+                  Row(
+                    children: [
+                      Icon(Icons.person),
+                      SizedBox(width: 10),
+                      Flexible(
+                        child: Text(
+                          'Username: ${controller.user?.username ?? ''}',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Icon(Icons.email),
+                      SizedBox(width: 10),
+                      Flexible(
+                        child: Text(
+                          'Email: ${controller.user?.email ?? ''}',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Icon(Icons.phone),
+                      SizedBox(width: 10),
+                      Flexible(
+                        child: Text(
+                          'Phone: ${controller.user?.phoneNumber ?? ''}',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 50),
+                  Container(
+                    width: (size.width - 40) / 4,
+                    height: 56,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        CengdenNavigator.navigateToUpdateUserView(context, controller.user!);
+                      },
+                      child: Text(
+                        'Edit Profile',
+                        style: kAppBarTitleStyle(),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  PrimaryButton(
+                    text: "Log Out",
+                    onPressed: () {
+                      controller.logOut(context);
+                    },
+                    isEnabled: true,
+                    isLoading: controller.isLoading,
+                  ),
+                ],
+              ),
             ),
           ),
         );

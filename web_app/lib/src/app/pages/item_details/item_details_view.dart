@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart' hide View;
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
-import 'package:web_app/src/app/constants.dart';
 import 'package:web_app/src/app/navigator.dart';
 import 'package:web_app/src/app/pages/item_details/item_details_controller.dart';
-import 'package:web_app/src/app/widgets/app_bar.dart';
-import 'package:web_app/src/app/widgets/app_drawer.dart';
 import 'package:web_app/src/app/widgets/item_fields_view_widgets.dart';
 import 'package:web_app/src/data/repositories/data_item_repository.dart';
 import 'package:web_app/src/data/repositories/data_user_repository.dart';
@@ -47,39 +44,26 @@ class _ItemDetailsState extends ViewState<ItemDetailsView, ItemDetailsController
     Size size = MediaQuery.of(context).size;
     return ControlledWidgetBuilder<ItemDetailsController>(
       builder: (context, controller) {
-        User? user = controller.userRepository.getUser();
+        User? user = controller.userRepository.getCurrentUser();
 
         return Scaffold(
           key: _scaffoldKey,
-          drawer: AppDrawer(
-            userRepository: controller.userRepository,
-          ),
           appBar: AppBar(
-            leading: Builder(
-              builder: (context) => IconButton(
-                icon: Icon(
-                  Icons.menu_rounded,
-                  size: size.width * 0.025,
-                ),
-                onPressed: () => _scaffoldKey.currentState!.openDrawer(),
-              ),
+            title: Text(
+              'Item Details',
             ),
-            toolbarHeight: size.height * 0.12,
-            title: const CengdenAppBar(),
-            iconTheme: IconThemeData(color: kPrimaryColor),
+            centerTitle: true,
           ),
           body: SingleChildScrollView(
             padding: EdgeInsets.all(16),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Left side with image
                 Column(
                   children: [
                     Container(
-                      width: size.width / 3,
-                      margin: EdgeInsets.only(right: 16),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
@@ -96,15 +80,29 @@ class _ItemDetailsState extends ViewState<ItemDetailsView, ItemDetailsController
                         child: Image.network(
                           item.imageUrl,
                           fit: BoxFit.cover,
+                          width: size.width / 4,
                         ),
                       ),
                     ),
                     SizedBox(height: 10),
-                    (user != null && (user.auth == 'admin' || item.createdBy.id == user.id))
-                        ? Container(
-                            width: size.width / 3,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (user != null)
+                            IconButton(
+                              onPressed: () {
+                                controller.addItemToFavorites(item);
+                              },
+                              icon: Icon(
+                                Icons.bookmark_add_outlined,
+                                size: 32,
+                                color: Colors.blue, // Adjust color to match your theme
+                              ),
+                            ),
+                          SizedBox(width: 20),
+                          if (user != null && (user.auth == 'admin' || item.createdBy.id == user.id))
+                            Row(
                               children: [
                                 IconButton(
                                   onPressed: () {
@@ -112,31 +110,53 @@ class _ItemDetailsState extends ViewState<ItemDetailsView, ItemDetailsController
                                   },
                                   icon: Icon(
                                     Icons.edit,
+                                    size: 32,
+                                    color: Colors.green, // Adjust color to match your theme
                                   ),
                                 ),
+                                SizedBox(width: 20),
                                 IconButton(
                                   onPressed: () {
                                     controller.deleteItem(item);
-                                    Navigator.pop(context);
+                                    CengdenNavigator.navigateToHomeView(context, 'no');
                                   },
                                   icon: Icon(
                                     Icons.delete,
+                                    size: 32,
+                                    color: Colors.red, // Adjust color to match your theme
                                   ),
                                 ),
                               ],
                             ),
-                          )
-                        : Container(),
+                        ],
+                      ),
+                    )
                   ],
                 ),
+                SizedBox(width: 100),
                 // Right side with details
-                item is Computer
-                    ? ComputerView(computer: item as Computer)
-                    : item is Phone
-                        ? PhoneView(phone: item as Phone)
-                        : item is Vehicle
-                            ? VehicleView(vehicle: item as Vehicle)
-                            : PrivateLessonView(privateLesson: item as PrivateLesson),
+                Container(
+                  //width: size.width * 0.5,
+                  child: item is Computer
+                      ? ComputerView(
+                          computer: item as Computer,
+                          user: user,
+                        )
+                      : item is Phone
+                          ? PhoneView(
+                              phone: item as Phone,
+                              user: user,
+                            )
+                          : item is Vehicle
+                              ? VehicleView(
+                                  vehicle: item as Vehicle,
+                                  user: user,
+                                )
+                              : PrivateLessonView(
+                                  privateLesson: item as PrivateLesson,
+                                  user: user,
+                                ),
+                ),
               ],
             ),
           ),
