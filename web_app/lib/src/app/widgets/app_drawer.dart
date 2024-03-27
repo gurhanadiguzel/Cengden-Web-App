@@ -141,7 +141,6 @@ class AppDrawer extends StatelessWidget {
                     ],
                   )
                 : Container(),
-            // TODO : Spacer(),
             if (user != null && user.auth == 'admin')
               ListTile(
                 title: Row(

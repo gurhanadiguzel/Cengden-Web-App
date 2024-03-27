@@ -278,7 +278,7 @@ Future<void> _showVerificationCodePopup(BuildContext context, RegisterController
               SizedBox(height: 6),
               CengdenTextField(
                 size: MediaQuery.of(context).size, // Adjust size here
-                title: "Verification Code",
+                title: "Your Verification Code is sent to email.",
                 hintText: "Enter verification code",
                 isObscure: false,
                 onChanged: controller.setUserVerificationCode,

@@ -185,9 +185,8 @@ class RegisterController extends Controller {
   }
 
   bool isValidEmail(String email) {
-    // TODO
-    //email.endsWith('@ceng.metu.edu.tr');
-    return true;
+    if (email.endsWith('@ceng.metu.edu.tr')) return true;
+    return false;
   }
 
   void generateSixDigitCode() {

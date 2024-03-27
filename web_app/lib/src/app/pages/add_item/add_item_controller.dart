@@ -173,7 +173,7 @@ class AddItemController extends Controller implements ItemController {
 
   @override
   void setStoragePhone(String? value) {
-    batteryCapacity = value;
+    phoneStorage = value;
     refreshUI();
   }
 
