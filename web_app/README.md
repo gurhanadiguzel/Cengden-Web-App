@@ -64,10 +64,16 @@ The CENGDEN web application is deployed and can be accessed at https://cengden-i
 - With the help of this inputs it only gets between start and end index items not every items.
 
 ## Design Decisions
-- The application is designed using Flutter for cross-platform compatibility.
-- MongoDB is chosen as the database for its flexibility and scalability.
-- SendGrid is used for email functionality due to its reliability and ease of integration.
-- AWS is selected for web hosting to ensure high availability and performance. In AWS i have used lambda functions for sending email.
+
+- **Choice of Programming Language:** Flutter was chosen for the front-end development due to its versatility, cross-platform capabilities, and , and I'm already familiar with it from previous projects. Flutter's expressive UI framework and hot reload feature expedite the development process, while its Dart programming language offers strong static typing and asynchronous programming support.
+
+- **Frameworks:** Flutter Clean Architecture was utilized to maintain a clean and organized codebase, separating business logic from presentation and data layers. This architecture promotes modularity, testability, and scalability, making it easier to maintain and extend the application in the future.
+
+- **Database Selection:** MongoDB was selected as the database for its NoSQL nature, which provides flexibility in handling unstructured data and scalability to accommodate large volumes of information. MongoDB's document-oriented model aligns well with the dynamic nature of E-Marketplace data, allowing for efficient storage and retrieval of items and user information.
+
+- **Email Functionality:** SendGrid was integrated for email functionality due to its reliability, scalability, and ease of use. SendGrid's robust API allows for seamless integration with the application, enabling automated email notifications for various events such as account registration, password reset, and item updates.
+
+- **Web Hosting:** AWS Lambda functions were utilized for sending emails, leveraging AWS's serverless architecture for cost efficiency and scalability. By abstracting away server management tasks, AWS Lambda enables seamless email delivery without the need for maintaining and scaling server infrastructure, ensuring high availability and performance of the email functionality. Additionally, AWS provides a suite of tools and services for monitoring, logging, and managing the application's backend components, enhancing overall reliability and operational efficiency.
 
 ## Contributors
 - Gürhan İlhan Adıgüzel (2448025)
