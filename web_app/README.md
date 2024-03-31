@@ -71,9 +71,9 @@ The CENGDEN web application is deployed and can be accessed at https://cengden-i
 
 - **Database Selection:** MongoDB was selected as the database for its NoSQL nature, which provides flexibility in handling unstructured data and scalability to accommodate large volumes of information. MongoDB's document-oriented model aligns well with the dynamic nature of E-Marketplace data, allowing for efficient storage and retrieval of items and user information.
 
-- **Email Functionality:** SendGrid was integrated for email functionality due to its reliability, scalability, and ease of use. SendGrid's robust API allows for seamless integration with the application, enabling automated email notifications for various events such as account registration, password reset, and item updates.
+- **Email Functionality:** SendGrid was integrated for email functionality due to its reliability, scalability, and ease of use. SendGrid's robust API allows for seamless integration with the application, enabling automated email notifications for various events such as account registration, and item updates.
 
-- **Web Hosting:** AWS Lambda functions were utilized for sending emails, leveraging AWS's serverless architecture for cost efficiency and scalability. By abstracting away server management tasks, AWS Lambda enables seamless email delivery without the need for maintaining and scaling server infrastructure, ensuring high availability and performance of the email functionality. Additionally, AWS provides a suite of tools and services for monitoring, logging, and managing the application's backend components, enhancing overall reliability and operational efficiency.
+- **Web Hosting:** AWS Lambda functions were utilized for sending emails, leveraging AWS's serverless architecture for cost efficiency and scalability. By abstracting away server management tasks, AWS Lambda enables seamless email delivery without the need for maintaining and scaling server infrastructure, ensuring high availability and performance of the email functionality.
 
 ## Contributors
 - Gürhan İlhan Adıgüzel (2448025)
