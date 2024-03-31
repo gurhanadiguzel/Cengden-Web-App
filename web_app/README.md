@@ -18,9 +18,8 @@ The CENGDEN web application is deployed and can be accessed at https://cengden-i
 2. User should press the Profile Button at the menu bar. Sign up for an "@ceng.metu.edu.tr" account or log in if you already have one.
 3. After Log-in users can add new item, or updating their profile from here.
 4. When user added item this item shown in My Items Page.
-5. Click on an item to view its details.
-6. In Item details View users can add the item their favorites list. 
-7. Manage your account and items as needed.
+5. Click on an item to view its details. 
+6. In Item details View users can add the item their favorites list. Also if its own item they can update or delete.
    
 ### Homepage
 - Overview of featured items and some common features for all categories.
@@ -29,12 +28,12 @@ The CENGDEN web application is deployed and can be accessed at https://cengden-i
 - Users can view items filtered by specific categories by the menu bar.
 
 ### Item Details View
--  In item details view user can add items to your favorite list. If the user is admin or owner of the item they can update or delete the item.
+-  In item details view user can add items to your favorite list. If the user is admin or owner of the item they can update or delete the item. Also, in updating page owner of the item can active or deactive item by changing the Item Visibility. 
 
 ### Sign-up View
 - Users can only sign up with their "@ceng.metu.edu.tr" mail for an account. In order to sign up, verification code is sent to their email for email verification.
 - Sometimes there will be a problem to sending verification code to "ceng" mail, but there is no problem with sending code to "gmail" or "metu" mail addresses.
-- If you cannot sign up, you can log in with the example  account as admin:
+- If you cannot get a code while signing up, you can log in with the example  account as admin:
 - email: e2448025@ceng.metu.edu.tr
 - password: admin
 - Also you can log in with the example account as user:
@@ -46,6 +45,7 @@ The CENGDEN web application is deployed and can be accessed at https://cengden-i
 
 ### Account Management
 - Authenticated users can update their account information such as username, phone number and password in Profile Page. When they update their accounts, they also updated in the favorite list collection and items createdBy field.
+- When you log in with the administrator role, there is an All Users section in the menu bar. Administrator has the ability to delete any user here.
 
 ### Item Management
 - Authenticated users can add, update, delete, deactivate/reactivate items.
