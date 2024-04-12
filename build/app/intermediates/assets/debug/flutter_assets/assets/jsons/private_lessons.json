@@ -1,0 +1,34 @@
+[
+    {
+        "_id": {
+            "$oid": "65f2f5e8bdd51fdeb11d8a5f"
+        },
+        "Title": "Programming Fundamentals Course",
+        "TutorName": "John Smith",
+        "Lessons": [
+            "Data Structures",
+            "Algorithms",
+            "C++"
+        ],
+        "Location": "Online",
+        "Duration": "1 hour/session",
+        "Price": "$60",
+        "Image": "image path",
+        "Description": "Comprehensive course covering programming fundamentals including Data Structures, Algorithms, and C++."
+    },
+    {
+        "_id": {
+            "$oid": "65f2f6a7bdd51fdeb11d8a60"
+        },
+        "Title": "Python Programming Course",
+        "TutorName": "Emily Johnson",
+        "Lessons": [
+            "Python Programming"
+        ],
+        "Location": "In-Person (Studio)",
+        "Duration": "45 minutes/session",
+        "Price": "$50",
+        "Image": "image path",
+        "Description": "Learn Python programming from scratch or improve your existing skills with personalized lessons."
+    }
+]
