@@ -166,6 +166,15 @@ class PhoneFieldsWidget extends StatelessWidget {
         CengdenTextField(
           size: size,
           title: "",
+          hintText: "Operating System",
+          isObscure: false,
+          onChanged: (String value) {
+            controller.setOperatingSystem(value);
+          },
+        ),
+        CengdenTextField(
+          size: size,
+          title: "",
           hintText: "Processor",
           isObscure: false,
           onChanged: (String value) {
